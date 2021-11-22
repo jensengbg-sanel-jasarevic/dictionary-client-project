@@ -2,7 +2,9 @@
   <header>
       <div class="headerDiv">
           <img src="../assets/logo.png" alt="logo" >
-           <div class="navDiv">
+           <a href="javascript:void(0);" class="icon" @click="myFunction">
+            <i class="fas fa-bars"></i></a>
+           <div class="navDiv" id='nav'>
            <div class="nav">
                   <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
                   <router-link to="/Dictionary"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
@@ -25,6 +27,23 @@
 
 <script>
 export default {
+    mounted() {
+       window.onresize = this.resize
+    },
+    methods: {
+        resize() {
+            var x = document.getElementById("nav");
+            x.className ="navDiv";
+        },
+myFunction() {
+   var x = document.getElementById("nav");
+  if (x.className === "navDiv") {
+    x.className += " responsive";
+  } else {
+    x.className = "navDiv";
+  }
+}
+}
 }
 </script>
 
@@ -108,4 +127,68 @@ img {
     justify-content: space-between;
 }
 
+@media screen and (max-width: 600px) {
+  .navDiv .nav {display: none;}
+  .navDiv .logDetails {display: none;}
+  .icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+    .navDiv.navDiv.responsive {
+  top: 0;
+  margin-top: 50px;
+  right: 0;
+  height: 80%;
+  position: fixed;
+  width: 25%;
+   display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  flex-direction: column;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
+    linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
+    linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
+    linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222D;
+    background-size: 20px 20px;
+    }
+.icon {
+    position: absolute;
+    top: 1;   
+    right: 0;
+    font-size: 25px;
+    margin-right: 20px;
+  }
+  .navDiv.responsive  .nav {
+      margin-left:0;
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      flex-grow: 1;
+       align-items: center;
+     }
+  
+  .navDiv.responsive .nav a {
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .navDiv.responsive .logDetails {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+  .navDiv.responsive .menu {
+     display: flex;
+      flex-direction: row;
+  }
+}
 </style>
