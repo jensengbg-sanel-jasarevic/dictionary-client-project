@@ -1,19 +1,19 @@
 <template>
-    <section class="homeSec">
+    <section class="contactSec">
      <h1>
-       This is Home Page
+       This is Contact Page
     </h1>
    </section>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Contact",
 };
 </script>
 
 <style scoped>
-.homeSec {
+.contactSec {
     overflow-y: auto;
     overflow-x: auto;
     margin-top: 5%;
@@ -40,7 +40,7 @@ h3 {
 }
 
 @media only screen and (max-width: 800px) {
-  .homeSec {
+  .contactSec {
   overflow-y: auto;
   overflow-x: auto;
   margin-top: 25%;

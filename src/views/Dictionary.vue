@@ -1,19 +1,19 @@
 <template>
-    <section class="homeSec">
+    <section class="dicSec">
      <h1>
-       This is Home Page
+       This is Dictionary Page
     </h1>
    </section>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: "Dictionary",
 };
 </script>
 
 <style scoped>
-.homeSec {
+.dicSec {
     overflow-y: auto;
     overflow-x: auto;
     margin-top: 5%;
@@ -40,7 +40,7 @@ h3 {
 }
 
 @media only screen and (max-width: 800px) {
-  .homeSec {
+  .dicSec {
   overflow-y: auto;
   overflow-x: auto;
   margin-top: 25%;
