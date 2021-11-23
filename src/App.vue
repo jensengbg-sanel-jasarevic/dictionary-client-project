@@ -7,21 +7,20 @@
     <Header></Header>  
     <router-view class="routerView"/>
     <Footer></Footer>
-    <!--<HeaderResp></HeaderResp> -->
+    
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-//import HeaderResp from './components/HeaderResp.vue'
+
 
 export default {
   name: 'App',
   components: {
     Header,
-    Footer,
-  //  HeaderResp
+    Footer  
   }
 }
 </script>
