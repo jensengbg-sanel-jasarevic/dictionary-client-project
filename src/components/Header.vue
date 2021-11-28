@@ -11,11 +11,11 @@
                   <router-link to="/Contact"><div class="menu"><i class="fas fa-comment"></i>Contact</div></router-link>
        </div>
        <div class="logDetails" >
-        <button class="primaryButton" tabindex="0" type="Button">
+        <button class="primaryButton" tabindex="0" type="Button" @click="goTo('login')">
             <span class="buttonLabel">Login</span>
             </button>
             &nbsp;&nbsp;
-            <button class="primaryButton" tabindex="0" type="Button">
+            <button class="primaryButton" tabindex="0" type="Button" @click="goTo('signUp')">
             <span class="buttonLabel">Sign Up</span>
             </button>
                 </div>
@@ -42,6 +42,21 @@ myFunction() {
   } else {
     x.className = "navDiv";
   }
+},
+goTo(event) {
+    if(event === "signUp") {
+    this.$router.push('/SignUp');
+    } else if(event === 'login') {
+        this.$router.push('/Login');
+    } else {
+         this.$confirm({
+            auth: false,
+            message: "Invalid Event received",
+            button: {
+              no: "Ok",
+            },
+          });
+    }
 }
 }
 }
