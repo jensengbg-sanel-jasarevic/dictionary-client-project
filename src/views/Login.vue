@@ -88,4 +88,55 @@ h3 {
     line-height: 1.2;
         margin-top: 0;
 }
+@media screen and (max-width: 600px) {
+    form {
+    max-width: 500px;
+    margin: 5px auto;
+    background: #fff;
+    text-align: left;
+    border-radius: 5px;
+    min-height: 62vh;
+}
+
+label {
+    color: rgb(73, 72, 72);
+    display:inline-block;
+    margin: 5px 0 10px;
+      font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+input {
+    display: block;
+    padding: 5px 6px;
+    width: 100%;
+    box-sizing: bordre-box;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+input[type="checkbox"] {
+    display: inline-block;
+    width:10px;
+    margin: 0 10px 0;
+    position: relative;
+    top: 2px;
+}
+
+.error {
+    color: #ff0000;
+    margin-top: 10px;
+    font-size: 0.4em;
+    font-weight: bold;
+}
+
+ h3 {
+    font-size: 1.25rem;
+     margin-bottom: 0.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+        margin-top: 0;
+  }
+}
 </style>

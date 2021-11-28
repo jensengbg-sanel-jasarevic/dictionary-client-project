@@ -1,4 +1,5 @@
 <template>
+<transition name="popUp-fade">
   <div class="popUp-backdrop">
     <div class="popUp">
       <header class="popUp-header">
@@ -20,11 +21,9 @@
        </section>
 
       <footer class="popUp-footer">
-           <slot name="footer">
-        </slot>
-        <button
-          type="button"
-          class="btn-green"
+       <button
+        type="button"
+         class="primaryButton" tabindex="0"
           @click="ok"
         >
          <slot name="okText">
@@ -32,15 +31,16 @@
         </button>
          <button
           type="button"
-          class="btn-green"
-          @click="close"
+          class="secondaryButton" tabindex="0"
+          @click="cancel"
         >
-         <slot name="closeText">
+         <slot name="cancelText">
         </slot>
         </button>
       </footer>
     </div>
   </div>
+</transition>
 </template>
 
 <script>
@@ -50,11 +50,29 @@
       close() {
         this.$emit('close');
       },
+      ok() {
+        this.$emit('ok');
+      },
+      cancel() {
+        this.$emit('cancel');
+      },
     },
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../style/common";
+
+.popUp-fade-enter,
+  .popUp-fade-leave-to {
+    opacity: 0;
+  }
+
+  .popUp-fade-enter-active,
+  .popUp-fade-leave-active {
+    transition: opacity .5s ease;
+  }
+
   .popUp-backdrop {
     position: fixed;
     top: 0;
@@ -68,11 +86,14 @@
   }
 
   .popUp {
+    position: inherit;
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    max-width: 1000px;
+    max-height: 500px;
   }
 
   .popUp-header,
@@ -84,19 +105,25 @@
   .popUp-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
+    color: #fff;
     justify-content: space-between;
+     background: #303533;
   }
 
   .popUp-footer {
     border-top: 1px solid #eeeeee;
-    flex-direction: column;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: center;
   }
 
   .popUp-body {
     position: relative;
-    padding: 20px 10px;
+    overflow: auto;
+    margin: 10px 10px 10px 10px;
+     max-width: 1000px;
+    max-height: 500px;
+    justify-content: center;
   }
 
   .btn-close {
@@ -108,14 +135,31 @@
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
-    color: #4AAE9B;
+    color: #fff;
     background: transparent;
   }
 
-  .btn-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
+  @media screen and (max-width: 600px) {
+.popUp {
+    overflow-x: auto;
+    overflow-y: auto;
+    font-size: 10px;
+    max-width: 300px;
+    max-height: 300px;
+  }
+  .popUp-body {
+    position: relative;
+    overflow: auto;
+    margin: 10px 10px 10px 10px;
+      max-width: 250px;
+    max-height: 250px;
+    font-size: 10px;
+  }
+   .popUp-footer {
+    border-top: 1px solid #eeeeee;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-items: center;
+  }
   }
 </style>

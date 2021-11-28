@@ -69,7 +69,6 @@ header {
     top: 0%;
     color: #fff;
     display: flex;
-    //z-index: 1100;
     box-sizing: border-box;
     flex-shrink: 0;
     flex-direction: column;

@@ -1,6 +1,6 @@
-.primaryButton {
+.primaryButton,
+.secondaryButton {
   color: #fff;
-  background-color: #226e4f;
   padding: 6px 16px;
   font-size: 0.875rem;
   min-width: 64px;
@@ -18,7 +18,6 @@
   margin: 0;
   display: inline-flex;
   outline: 0;
-  position: relative;
   align-items: center;
   user-select: none;
   vertical-align: middle;
@@ -28,8 +27,23 @@
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
 }
-.primaryButton:hover {
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  background-color: #a4a5a4;
+}
+.primaryButton {
+  background-color: #226e4f;
+}
+.primaryButton:hover:enabled {
   background-color: #29b97d;
+}
+
+.secondaryButton {
+  background-color: #303533;
+}
+
+.secondaryButton:hover:enabled {
+  background-color: #505251;
 }
 
 .buttonLabel {
@@ -61,4 +75,10 @@
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+@media screen and (max-width: 600px) {
+  .primaryButton,
+  .secondaryButton {
+    font-size: 10px;
+  }
 }
