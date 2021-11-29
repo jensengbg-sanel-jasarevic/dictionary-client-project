@@ -1,14 +1,18 @@
 <template>
-    <form>
+    <form >
         <h3> Login</h3>
         <label>Email</label>  
         <input type="email"  v-model="email" required>
         <label>Password :</label>  
-        <input type="password"  v-model="password" required>
+        <div v-if="passwordError" class="error">{{ passwordError }} </div>
+        <input type="password"  v-model="password">
         <br/>
-         <button class="primaryButton" tabindex="0" type="submit">
+         <button class="primaryButton" tabindex="0" type="submit" @click="handleSubmit" >
             <span class="buttonLabel">Login</span>
-            </button>
+        </button> &nbsp;&nbsp;
+        <button class="secondaryButton" tabindex="0"  @click="forgotPassword">
+            <span class="buttonLabel">Forget Password</span>
+        </button>
     </form>
 </template>
 <script>
@@ -18,22 +22,28 @@ export default {
         return {
             email: '',
             password: '',
+            passwordError: ''
         }
     },
     methods: {
 handleSubmit() {
             //Validate password field length
-            this.passwordError = this.password.length > 6 ? 
+            this.passwordError = this.password.length <= 0 ? 'Password cannot be empty!' : this.password.length > 6 ? 
             '' : 'Password should be more than 6 characters long!';
 
             if(!this.passwordError) {
-                console.log(this.email);
-                console.log(this.password);
-                console.log(this.role);
-                console.log(this.education);
-                console.log(this.terms);
+               //backend call goes here
 
             }
+        },
+        forgotPassword() {
+            this.$confirm({
+            auth: false,
+            message: "Yet to be implemented",
+            button: {
+              no: "Ok",
+            },
+          });
         }
     },
 }
@@ -102,7 +112,7 @@ label {
     color: rgb(73, 72, 72);
     display:inline-block;
     margin: 5px 0 10px;
-      font-size: 0.8em;
+    font-size: 0.8em;
     text-transform: uppercase;
 }
 
@@ -133,10 +143,10 @@ input[type="checkbox"] {
 
  h3 {
     font-size: 1.25rem;
-     margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
     line-height: 1.2;
-        margin-top: 0;
+    margin-top: 0;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="handleSubmit">
         <h3> Register</h3>
         <label>Firstname</label>
         <input type="Text"  v-model="firstname" required>
@@ -8,6 +8,7 @@
         <label>Email</label>  
         <input type="email"  v-model="email" required>
         <label>Password :</label>  
+        <div v-if="passwordError" class="error">{{ passwordError }} </div>
         <input type="password"  v-model="password" required>
         <br/>
         <div>
@@ -41,12 +42,10 @@ You have an opportunity at any time to object to us using your personal data for
   </template>
   
         </Popup>
-         <button class="primaryButton" tabindex="0" type="submit" v-if ="terms">
+         <button class="primaryButton" tabindex="0" type="submit"  :disabled="!terms">
             <span class="buttonLabel">Sign up here</span>
             </button>
-             <button class="primaryButton" tabindex="0"  v-else disabled>
-            <span class="buttonLabel">Sign up here</span>
-            </button>
+           
     </form>
 </template>
 <script>
@@ -64,6 +63,7 @@ export default {
             password: '',
             terms: false,
             isTermsVisible: false,
+             passwordError: ''
         }
     },
     methods: {
