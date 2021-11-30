@@ -24,7 +24,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getWord(ctx, payload){
-      let response = await axios.get(`${ctx.state.API_URL}/api/glossary/${payload}`); 
+      let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/${payload}`); 
       let responseData = {
         word: response.data[0].word,
         information: response.data[0].information,
@@ -38,10 +38,10 @@ export default new Vuex.Store({
     async getComments(ctx, payload) {
       let resp = await axios.get(`${ctx.state.API_URL}/api/comments`); 
       let wordComments = resp.data.filter(item => item.word === payload);
-      ctx.commit('setWordComments', wordComments);
+      ctx.commit('setWordComments', wordComments.reverse());
     },
     async patchVote(ctx, payload) {
-      await axios.patch(`${ctx.state.API_URL}/api/comments`, { author: payload.author });      
+      await axios.patch(`${ctx.state.API_URL}/api/comments`, { comment: payload.comment });      
     }        
   },
   modules: {

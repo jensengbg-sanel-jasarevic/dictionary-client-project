@@ -8,7 +8,7 @@
            <div class="nav">
                   <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
                   <router-link to="/Dictionary"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
-                  <router-link to="/Contact"><div class="menu"><i class="fas fa-comment"></i>Contact</div></router-link>
+                  <router-link to="/Contact"><div class="menu"><i class="fas fa-comment"></i> Contact</div></router-link>
        </div>
        <div class="logDetails" >
          <button class="primaryButton" tabindex="0" type="Button" @click="logout" v-if="token">

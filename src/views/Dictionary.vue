@@ -1,15 +1,18 @@
 <template>
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search in glossary" autocomplete="off">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for words occurring in IT field" autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <div class="word-data-container" v-if="word">
         <h1>{{ word }}</h1>
+        <p class="author">
+          <img src="@/assets/iconpacks-person.svg" alt="Author">
+          {{ wordAuthor }}
+        </p>
         <p>{{ wordInfo }}</p>
-        <p class="author">Author: {{ wordAuthor }}</p>
-        <h4>Comments</h4>
-        <Comments v-for="comment in wordComments" :key="comment.id" :comment="comment"/>
+        <h4>Comments ({{ wordCommentsTotal }})</h4>
+        <Comments @voted="updateVotes" v-for="comment in wordComments" :key="comment.id" :comment="comment"/>
         <form class="comment-word-form" @submit.prevent="postComment">
           <label for="comments">Suggest a more clear definition or more simple explanation for this word</label>
           <textarea id="comments" v-model="textareaInputValue" rows="5" placeholder="Share your thought..."/>
@@ -49,15 +52,38 @@ computed: {
   wordComments() {
   return this.$store.state.wordComments
   },
+  wordCommentsTotal() {
+  let total;
+  let comments = this.$store.state.wordComments
+    if(comments != undefined){
+    total = comments.length
+  } 
+  return total
+  }
   },
 
 methods: {
+  updateVotes(event) {
+   setTimeout( () => {  
+    this.$store.dispatch('getComments', event.word) 
+    let votesCounter = document.getElementById(`comment-votes-${event.id}`)
+    votesCounter.style.width = "5%"
+    votesCounter.style.backgroundColor = "#1ac61a"
+    votesCounter.style.color = "white"
+    votesCounter.style.borderRadius = "5px"
+    }, 500)
+  },
   postComment(){
   this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
+  this.$store.dispatch('getComments', this.word); 
+  this.textareaInputValue = null;
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
   },
   getWord(){
   this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
   this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
+  this.searchInputValue = null;
   }    
   }
 
@@ -71,7 +97,6 @@ methods: {
     overflow-x: auto;
     margin-top: 5%;
 }
-
 .search-word-form {
   display: flex;
   flex-direction: column;
@@ -98,13 +123,20 @@ input[type=text] {
 .word-data-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
   border: 1px solid #a0d18c;
-  max-width: 85vw;
+  max-width: 80vw;
   padding: 2%;
   margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
+}
+.author {
+  color: #6eb1e1;
+  font-weight: bold;
+}
+.author > img {
+  width: 1.5em;
+  height: 1.5em;
 }
 .comment-word-form {
   display: flex;
@@ -133,7 +165,7 @@ textarea {
   padding: 15px;
 }
 label {
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .bold {
