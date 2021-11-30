@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com/api",
+    API_URL: "https://serverexamensarbete.herokuapp.com",
     word: null,
     wordInfo: null,
     wordAuthor: null,
@@ -24,7 +24,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getWord(ctx, payload){
-      let response = await axios.get(`${ctx.state.API_URL}/glossary/${payload}`); 
+      let response = await axios.get(`${ctx.state.API_URL}/api/glossary/${payload}`); 
       let responseData = {
         word: response.data[0].word,
         information: response.data[0].information,
@@ -33,15 +33,15 @@ export default new Vuex.Store({
       ctx.commit('setWord', responseData);
     },
     async postComment(ctx, payload){
-     await axios.post(`${ctx.state.API_URL}/comments`, { comment: payload.comment, word: payload.word });    
+     await axios.post(`${ctx.state.API_URL}/api/comments`, { comment: payload.comment, word: payload.word });    
     },
     async getComments(ctx, payload) {
-      let resp = await axios.get(`${ctx.state.API_URL}/comments`); 
+      let resp = await axios.get(`${ctx.state.API_URL}/api/comments`); 
       let wordComments = resp.data.filter(item => item.word === payload);
       ctx.commit('setWordComments', wordComments);
     },
     async patchVote(ctx, payload) {
-      await axios.patch(`${ctx.state.API_URL}/comments`, { author: payload.author });      
+      await axios.patch(`${ctx.state.API_URL}/api/comments`, { author: payload.author });      
     }        
   },
   modules: {
