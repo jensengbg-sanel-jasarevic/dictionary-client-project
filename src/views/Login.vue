@@ -26,13 +26,17 @@ export default {
         }
     },
     methods: {
-handleSubmit() {
+        async handleSubmit() {
             //Validate password field length
             this.passwordError = this.password.length <= 0 ? 'Password cannot be empty!' : this.password.length > 6 ? 
             '' : 'Password should be more than 6 characters long!';
 
             if(!this.passwordError) {
-               //backend call goes here
+               const userDetails= {
+                        email: this.email,
+                        password: this.password,
+                    }
+                this.$store.dispatch('login',userDetails)
 
             }
         },

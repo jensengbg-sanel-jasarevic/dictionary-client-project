@@ -35,7 +35,7 @@
  <ContactForm
       v-show="isContactFormVisible"
         @close="closeContact"
-    />
+  />
 
    </section>
 </template>

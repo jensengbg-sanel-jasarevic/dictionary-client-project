@@ -12,12 +12,12 @@ const routes = [
     {
         path: '/Dictionary',
         name: 'Dictionary',
-        component: () => import('../views/Dictionary.vue')
+        component: () => import('../views/Dictionary.vue'),
     },
     {
         path:'/Contact',
         name: 'Contact',
-        component: () => import('../views/Contact.vue')
+        component: () => import('../views/Contact.vue'),
     },
     {
         path:'/SignUp',
@@ -34,6 +34,16 @@ const routes = [
 const router = new VueRouter({
     routes 
   })
+
+  router.beforeEach((to, from, next) => {
+    const token = sessionStorage.getItem("token");
+    console.log("token" + token);
+    if (to.matched.some((route) => route.meta.requiresAuth && !token)) {
+      next({ name: "Login" });
+    } else {
+      next();
+    }
+  });
   
 export default router
 
