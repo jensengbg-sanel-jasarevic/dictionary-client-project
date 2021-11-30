@@ -3,7 +3,7 @@
       <div class="headerDiv">
           <img src="../assets/logo.png" alt="logo" >
            <a href="javascript:void(0);" class="icon" @click="myFunction">
-            <i class="fas fa-bars"></i></a>
+            <i class="fas fa-bars"></i></a> <!-- Font Awesome is designed to be used with inline elements, and we recommend sticking with a consistent HTML element to reference them by in your project-->
            <div class="navDiv" id='nav'>
            <div class="nav">
                   <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
@@ -11,11 +11,14 @@
                   <router-link to="/Contact"><div class="menu"><i class="fas fa-comment"></i>Contact</div></router-link>
        </div>
        <div class="logDetails" >
-        <button class="primaryButton" tabindex="0" type="Button" @click="goTo('login')">
+         <button class="primaryButton" tabindex="0" type="Button" @click="logout" v-if="token">
+            <span class="buttonLabel">Logout</span>
+            </button>
+        <button class="primaryButton" tabindex="0" type="Button" @click="goTo('login')" v-if="!token">
             <span class="buttonLabel">Login</span>
             </button>
             &nbsp;&nbsp;
-            <button class="primaryButton" tabindex="0" type="Button" @click="goTo('signUp')">
+            <button class="primaryButton" tabindex="0" type="Button" @click="goTo('signUp')" v-if="!token">
             <span class="buttonLabel">Sign Up</span>
             </button>
                 </div>
@@ -27,7 +30,17 @@
 
 <script>
 export default {
-    mounted() {
+  //Function to get the token generated for the user
+   computed: {
+    token : {
+       get: function () {
+        return sessionStorage.getItem("token");
+      },
+      set: function () {},
+    },
+  },
+  //This function will be excecuted when the screen resized and loaded
+    mounted() { 
        window.onresize = this.resize
     },
     methods: {
@@ -57,7 +70,11 @@ goTo(event) {
             },
           });
     }
-}
+},
+logout() {
+      sessionStorage.removeItem("token");
+      location.reload();
+    }
 }
 }
 </script>
@@ -158,9 +175,9 @@ img {
   height: 80%;
   position: fixed;
   width: 25%;
-   display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   flex-direction: column;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,

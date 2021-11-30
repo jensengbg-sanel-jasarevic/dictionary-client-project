@@ -1,5 +1,6 @@
 <template>
     <form @submit.prevent="handleSubmit">
+         <p v-if="showRegister === true" class="register-user">New User is Registered!</p>
         <h3> Register</h3>
         <label>Firstname</label>
         <input type="Text"  v-model="firstname" required>
@@ -63,7 +64,8 @@ export default {
             password: '',
             terms: false,
             isTermsVisible: false,
-             passwordError: ''
+             passwordError: '',
+             showRegister:false,
         }
     },
     methods: {
@@ -73,7 +75,25 @@ handleSubmit() {
             '' : 'Password should be more than 6 characters long!';
 
             if(!this.passwordError) {
-               //backend call goes here
+                const userDetails= {
+                        firstname:this.firstname,
+                        lastname: this.lastname,
+                        email: this.email,
+                        password: this.password,
+                        terms: new Date().toLocaleString(),
+                    }
+                this.$store.dispatch('registerUser',userDetails);
+                  this.showRegister=true;
+                  this.firstname= '',
+                  this.lastname= '',
+                  this.email= '',
+                  this.password= '',
+                  this.terms= false,
+                  this.isTermsVisible= false,
+                  this.passwordError= '',
+            setTimeout(()=>{
+               this.$router.push('/Login');
+            },1000)
 
             }
         },
@@ -143,7 +163,13 @@ h3 {
     margin-bottom: 0.5rem;
     font-weight: 500;
     line-height: 1.2;
-        margin-top: 0;
+    margin-top: 0;
+}
+
+.register-user{
+    font-size:24px;
+    font-weight: 500;
+    color:peru;
 }
 
 @media screen and (max-width: 600px) {
@@ -194,7 +220,13 @@ input[type="checkbox"] {
      margin-bottom: 0.5rem;
     font-weight: bold;
     line-height: 1.2;
-        margin-top: 0;
+    margin-top: 0;
   }
+
+  .register-user{
+    font-size:1.25rem;
+    font-weight: bold;
+    color:peru;
+}
 }
 </style>
