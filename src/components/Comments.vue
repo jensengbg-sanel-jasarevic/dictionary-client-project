@@ -4,7 +4,7 @@
     <p class="smaller-font">Author: {{ comment.author }}</p>
     <p class="smaller-font">Votes: {{ comment.votes }}</p>
     <div class="vote">
-      <img @click="patchVote" src="@/assets/iconpacks-add.svg" alt="vote" width="35" height="35">
+      <img @click="patchVote" src="@/assets/iconpacks-add.svg" alt="Vote" width="35" height="35">
     </div>
   </div>
 </template>
