@@ -1,15 +1,68 @@
 <template>
     <section class="dicSec">
-     <h1>
-       This is Dictionary Page
-    </h1>
+      <form class="search-word-form" @submit.prevent="getWord">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search in glossary" autocomplete="off">
+        <button type="submit">Search word</button>
+      </form>
+      <div class="word-data-container" v-if="word">
+        <h1>{{ word }}</h1>
+        <p>{{ wordInfo }}</p>
+        <p class="author">Author: {{ wordAuthor }}</p>
+        <h4>Comments</h4>
+        <Comments v-for="comment in wordComments" :key="comment.id" :comment="comment"/>
+        <form class="comment-word-form" @submit.prevent="postComment">
+          <label for="comments">Suggest a more clear definition or more simple explanation for this word</label>
+          <textarea id="comments" v-model="textareaInputValue" rows="5" placeholder="Share your thought..."/>
+          <input type="submit" value="Post">
+        </form>
+      </div>
    </section>
 </template>
 
 <script>
+import Comments from '@/components/Comments'
+
 export default {
-  name: "Dictionary",
+name: "Dictionary",
+
+components: {
+   Comments
+},
+ 
+data() {
+return {
+  searchInputValue: null,
+  textareaInputValue: null
+  }
+},
+
+computed: {
+  word() {
+  return this.$store.state.word;
+  },
+  wordInfo() {
+  return this.$store.state.wordInfo;
+  },
+  wordAuthor() {
+  return this.$store.state.wordAuthor;
+  },
+  wordComments() {
+  return this.$store.state.wordComments
+  },
+  },
+
+methods: {
+  postComment(){
+  this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
+  },
+  getWord(){
+  this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
+  this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
+  }    
+  }
+
 };
+
 </script>
 
 <style scoped>
@@ -17,6 +70,70 @@ export default {
     overflow-y: auto;
     overflow-x: auto;
     margin-top: 5%;
+}
+
+.search-word-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search-word-form > input {
+  min-width: 55vw;
+  min-height: 30px;
+  border-radius: 20px;
+  border: 1px solid #a0d18c;
+}
+input[type=text] {
+  padding: 10px;
+  outline: none;
+}
+.search-word-form > button {
+  margin-top: 2%;
+  min-width: 15vw;
+  border: none;
+  background-color: #dadce0;
+  cursor: pointer;
+  height: 40px;
+}
+.word-data-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #a0d18c;
+  max-width: 85vw;
+  padding: 2%;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.comment-word-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3%;
+}
+.comment-word-form > input[type=submit]{
+  background-color: #dadce0;
+  border: none;
+  padding: 16px 32px;
+  text-decoration: none;
+  cursor: pointer; 
+  margin : 0 auto;
+  margin-bottom: 2%;
+}
+textarea {
+  outline: none;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 8px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;  
+  padding: 15px;
+}
+label {
+  font-size: 1.5em;
 }
 
 .bold {
