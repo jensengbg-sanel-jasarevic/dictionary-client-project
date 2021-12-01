@@ -76,9 +76,11 @@ methods: {
   postComment(){
   this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
   this.textareaInputValue = null;
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
-  setTimeout( () => { this.$store.dispatch('getComments', this.word) }, 900)
+  setTimeout( () => { 
+    this.$store.dispatch('getComments', this.word)
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
+    }, 900)
   },
   getWord(){
   this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
