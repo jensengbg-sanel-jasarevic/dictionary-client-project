@@ -71,14 +71,14 @@ methods: {
     votesCounter.style.backgroundColor = "#1ac61a"
     votesCounter.style.color = "white"
     votesCounter.style.borderRadius = "5px"
-    }, 500)
+    }, 700)
   },
   postComment(){
   this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
-  this.$store.dispatch('getComments', this.word); 
   this.textareaInputValue = null;
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
+  setTimeout( () => { this.$store.dispatch('getComments', this.word) }, 900)
   },
   getWord(){
   this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
