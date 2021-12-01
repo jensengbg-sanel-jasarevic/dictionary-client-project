@@ -78,8 +78,6 @@ methods: {
   this.textareaInputValue = null;
   setTimeout( () => { 
     this.$store.dispatch('getComments', this.word)
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
     }, 900)
   },
   getWord(){
