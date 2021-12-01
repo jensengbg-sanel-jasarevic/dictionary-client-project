@@ -37,8 +37,10 @@ export default new Vuex.Store({
     },
     async getComments(ctx, payload) {
       let resp = await axios.get(`${ctx.state.API_URL}/api/comments`); 
-      console.log(resp)
+      console.log("data", resp)
       let wordComments = resp.data.filter(item => item.word === payload);
+      console.log("filter", wordComments)
+
       ctx.commit('setWordComments', wordComments.reverse());
     },
     async patchVote(ctx, payload) {
