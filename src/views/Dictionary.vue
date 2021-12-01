@@ -1,7 +1,7 @@
 <template>
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for words occurring in IT field" autocomplete="off">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for occuring words in the IT field" autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <div class="word-data-container" v-if="word">
