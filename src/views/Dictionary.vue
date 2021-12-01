@@ -1,18 +1,23 @@
 <template>
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Look up definitions of words in IT field" autocomplete="off">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search definitions of words in the field of IT" autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <div class="word-data-container" v-if="word">
         <h1>{{ word }}</h1>
+        <p id ="word-updated">{{ updatedWordNotification }}</p>
         <p class="author">
           <img src="@/assets/iconpacks-person.svg" alt="Author">
           {{ wordAuthor }}
         </p>
         <p>{{ wordInfo }}</p>
-        <h4>Comments ({{ wordCommentsTotal }})</h4>
-        <Comments @voted="updateVotes" v-for="comment in wordComments" :key="comment.id" :comment="comment"/>
+        <h4 id="header-comments">Comments ({{ wordCommentsTotal }})</h4>
+        <Comments 
+        @votedComment="updateCommentVotes"
+        @approvedComment="updateWordInfo"
+        @deletedComment="updateWordComments"
+         v-for="comment in wordComments" :key="comment.id" :comment="comment"/>
         <form class="comment-word-form" @submit.prevent="postComment">
           <label for="comments">Suggest a more clear definition or more simple explanation for this word</label>
           <textarea id="comments" v-model="textareaInputValue" rows="5" placeholder="Share your thought..."/>
@@ -34,6 +39,7 @@ components: {
  
 data() {
 return {
+  updatedWordNotification: null,
   searchInputValue: null,
   textareaInputValue: null
   }
@@ -63,29 +69,42 @@ computed: {
   },
 
 methods: {
-  updateVotes(event) {
+  updateWordInfo(word) {
    setTimeout( () => {  
-    this.$store.dispatch('getComments', event.word) 
-    let votesCounter = document.getElementById(`comment-votes-${event.id}`)
-    votesCounter.style.width = "5%"
-    votesCounter.style.backgroundColor = "#1ac61a"
-    votesCounter.style.color = "white"
-    votesCounter.style.borderRadius = "5px"
-    }, 700)
-  },
-  postComment(){
-  this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
-  this.textareaInputValue = null;
-  setTimeout( () => { 
-    this.$store.dispatch('getComments', this.word)
+    this.$store.dispatch('getWord', word) 
+    this.updatedWordNotification = "Word definition updated."
+    document.getElementById("word-updated").style.color = "#42b983"
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE & Opera
-    }, 900)
+    }, 700)
+  },
+  updateWordComments(word) {
+   setTimeout( () => {  
+    this.$store.dispatch('getComments', word) 
+    }, 700)
+  },    
+  updateCommentVotes(comment) {
+   setTimeout( () => {  
+    this.$store.dispatch('getComments', comment.word) 
+    let votesCounter = document.getElementById(`comment-votes-${comment.id}`)
+    votesCounter.style.width = "15%"
+    votesCounter.style.backgroundColor = "#1ac61a"
+    votesCounter.style.color = "white"
+    votesCounter.style.borderRadius = "6px"
+    }, 700)
+  },  
+  postComment(){
+  this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
+  setTimeout( () => { 
+    this.$store.dispatch('getComments', this.word)
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
+    this.textareaInputValue = null;
+    }, 700)
   },
   getWord(){
-  let upper = this.searchInputValue.toUpperCase()
-  this.$store.dispatch("getWord", upper);
-  this.$store.dispatch("getComments", upper);
+  this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
+  this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
   setTimeout( () => { this.searchInputValue = null; }, 200)
   }    
   }
@@ -126,7 +145,7 @@ input[type=text] {
 .word-data-container{
   display: flex;
   flex-direction: column;
-  border: 1px solid #a0d18c;
+  border-top: 1.5px solid #a0d18c;
   max-width: 80vw;
   padding: 2%;
   margin-top: 2%;
@@ -140,6 +159,10 @@ input[type=text] {
 .author > img {
   width: 1.5em;
   height: 1.5em;
+}
+#header-comments {
+  border-top: 1.5px solid #a0d18c;
+  padding: 2%;
 }
 .comment-word-form {
   display: flex;

@@ -3,16 +3,16 @@
     <p class="smaller-font" id="comment-author">
       <img src="@/assets/iconpacks-person.svg" alt="Author">
       {{ comment.author }}
+      <img @click="putWordInfo" class="approve-disapprove-icon" src="@/assets/iconpacks-approve.svg" alt="Approve" width="35" height="35">
+      <img @click="deleteComment" class="approve-disapprove-icon" src="@/assets/iconpacks-disapprove.svg" alt="Disapprove" width="35" height="35">
     </p>    
+
     <p id="comment-text">{{ comment.comment }}</p>
     <p id="comment-created">{{ comment.created_at }}</p>
     <p class="smaller-font" :id="`comment-votes-${comment.id}`">
-      <img src="@/assets/iconpacks-check.svg" alt="Votes">
+      <img @click="patchVote" id="vote" src="@/assets/iconpacks-vote.svg" alt="Vote">
       {{ comment.votes }}
     </p>
-    <div class="vote">
-      <img @click="patchVote" src="@/assets/iconpacks-vote.svg" alt="Vote" width="35" height="35">
-    </div>
   </div>
 </template>
 
@@ -23,9 +23,17 @@ props: {
   comment: Object
 }, 
 methods: {
+  putWordInfo(){
+  this.$store.dispatch("putWordInfo", this.comment);
+  this.$emit('approvedComment', this.comment.word) 
+  },
+  deleteComment(){
+  this.$store.dispatch("deleteComment", this.comment.id);
+  this.$emit('deletedComment', this.comment.word) 
+  },
   patchVote(){
-  this.$store.dispatch("patchVote", { comment: this.comment.comment });
-  this.$emit('voted', { id: this.comment.id, word: this.comment.word }) 
+  this.$store.dispatch("patchVote", this.comment.id);
+  this.$emit('votedComment', { id: this.comment.id, word: this.comment.word });
   },   
   }       
 }
@@ -34,10 +42,11 @@ methods: {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .comment-component-wrapper{
-  min-width: 40%;
+  max-width: 60%;
   border-radius: 15px ;
   border-style: solid;
-  border-color: #a3c1ad;
+  border-color: #1d2a57;
+  margin-left:20%;
   margin-top: 1%;
   margin-bottom: 1%;
   padding: 1%;
@@ -45,6 +54,12 @@ methods: {
 p {
   text-align: left;
   padding: 5px;
+}
+.approve-disapprove-icon {
+  float: right;
+  margin-left: 1%;
+  margin-right: 1%;
+  cursor: pointer;
 }
 #comment-author {
   color: #6eb1e1;
@@ -63,13 +78,10 @@ p {
   font-size: 0.9em;
 }
 .smaller-font > img {
-  width: 1.4em;
-  height: 1.4em;
+  width: 1.8em;
+  height: 1.8em;
 }
-.vote {
-  float: right;
-}
-.vote > img {
+#vote{
   cursor: pointer;
 }
 </style>

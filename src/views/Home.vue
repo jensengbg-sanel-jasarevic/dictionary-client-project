@@ -8,7 +8,7 @@
       We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
     </p>
       <p>The goal is to explain IT terminology in a way that is easy to understand. We strive for simplicity and accuracy with every definition we publish.
-      If you have feedback about some definition, please register on the website. By doing this you will be able to contribute in making the websites content more qualitative by helping in defining or explaining words in a more clearly way. If you would like to suggest a new IT word, please contact us.
+      If you have feedback about some definition, please register on the website. This allows users the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. If you would like to suggest a new word, please contact us.
       </p>
    </section>
 </template>
