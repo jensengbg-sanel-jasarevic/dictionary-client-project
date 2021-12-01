@@ -40,7 +40,8 @@ export default new Vuex.Store({
       console.log("data comments", resp)
       let wordComments = resp.data.filter(item => item.word === payload);
       console.log("data comments filter", wordComments)
-      console.log("reversed"), wordComments.reverse()
+      let rev = wordComments.reverse()
+      console.log("reversed", rev)
       ctx.commit('setWordComments', wordComments.reverse());
     },
     async patchVote(ctx, payload) {
