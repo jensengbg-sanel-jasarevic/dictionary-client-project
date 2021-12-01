@@ -1,7 +1,7 @@
 <template>
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for occuring words in the IT field" autocomplete="off">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Look up definitions of words in IT field" autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <div class="word-data-container" v-if="word">
@@ -83,9 +83,10 @@ methods: {
     }, 900)
   },
   getWord(){
-  this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
-  this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
-  this.searchInputValue = null;
+  let upper = this.searchInputValue.toUpperCase()
+  this.$store.dispatch("getWord", upper);
+  this.$store.dispatch("getComments", upper);
+  setTimeout( () => { this.searchInputValue = null; }, 200)
   }    
   }
 

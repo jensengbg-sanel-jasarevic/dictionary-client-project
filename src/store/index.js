@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com",
+    API_URL: "http://localhost:5000",
     word: null,
     wordInfo: null,
     wordAuthor: null,
@@ -37,12 +37,8 @@ export default new Vuex.Store({
     },
     async getComments(ctx, payload) {
       let resp = await axios.get(`${ctx.state.API_URL}/api/comments`); 
-      console.log("data comments", resp)
       let wordComments = resp.data.filter(item => item.word === payload);
-      console.log("data comments filter", wordComments)
-      let rev = wordComments.reverse()
-      console.log("reversed", rev)
-      ctx.commit('setWordComments', wordComments.reverse());
+      ctx.commit('setWordComments', wordComments);
     },
     async patchVote(ctx, payload) {
       await axios.patch(`${ctx.state.API_URL}/api/comments`, { comment: payload.comment });      
