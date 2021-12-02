@@ -10,7 +10,7 @@ const routes = [
         component: () => import('../views/Home.vue')
     },
     {
-        path: '/Dictionary/:value',
+        path: '/Dictionary/:search',
         name: 'Dictionary',
         component: () => import('../views/Dictionary.vue'),
     },
