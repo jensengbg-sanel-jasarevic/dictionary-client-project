@@ -26,10 +26,12 @@ return {
 },
 
 mounted() {
-  if(this.$route.params.value === "Search"){ // Default URL for searching words in app
+  if(this.$route.params.search === "start"){ // Default URL for searching words in app
     return
-  } else { // For handling URL Parameters (Query Strings)
-    this.$store.dispatch("getWord", this.$route.params.value.toUpperCase());
+  } else { // Handling URL Parameters (Query Strings)
+    const queryString = this.$route.params.search.toUpperCase()
+    this.$store.dispatch("getWord", queryString);
+    this.$store.dispatch("getComments", queryString);
   }
 },
 
