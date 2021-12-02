@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com",
+    API_URL: "http://localhost:5000",
+    wordsByLetter: null,
     word: null,
     wordInfo: null,
     wordAuthor: null,
@@ -17,6 +18,9 @@ export default new Vuex.Store({
       state.word = responseData.word;
       state.wordInfo = responseData.information;
       state.wordAuthor = responseData.author;
+    },
+    setWordsByLetter(state, wordsByLetter){
+        state.wordsByLetter = wordsByLetter
     },
     setWordComments(state, wordComments){
       state.wordComments = wordComments;
@@ -31,6 +35,14 @@ export default new Vuex.Store({
         author: response.data[0].author
       }
       ctx.commit('setWord', responseData);
+    },
+    async getWordsByLetter(ctx, letter){
+      let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/words/${letter}`);
+      let wordsByLetter = new Array
+      response.data.forEach(item => {
+        wordsByLetter.push(item.word)
+      });
+      ctx.commit('setWordsByLetter', wordsByLetter);
     },
     async putWordInfo(ctx, payload) {
       await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload);      

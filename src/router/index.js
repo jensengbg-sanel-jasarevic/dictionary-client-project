@@ -10,9 +10,19 @@ const routes = [
         component: () => import('../views/Home.vue')
     },
     {
-        path: '/Dictionary',
+        path: '/Dictionary/:value',
         name: 'Dictionary',
         component: () => import('../views/Dictionary.vue'),
+    },
+    {
+        path: '/browse/',
+        name: 'Browse',
+        component: () => import('../views/Browse.vue'),
+    },
+    {
+        path: '/letter/:letter',
+        name: 'Letter',
+        component: () => import('../views/Letter.vue'),
     },
     {
         path:'/Contact',
@@ -39,7 +49,6 @@ const router = new VueRouter({
 
   router.beforeEach((to, from, next) => {
     const token = sessionStorage.getItem("token");
-    console.log("token" + token);
     if (to.matched.some((route) => route.meta.requiresAuth && !token)) {
       next({ name: "Login" });
     } else {
