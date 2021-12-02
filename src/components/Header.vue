@@ -7,9 +7,9 @@
            <div class="navDiv" id='nav'>
            <div class="nav">
                   <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
-                  <router-link to="/Dictionary/Search"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
-                  <router-link to="/Browse"> <div class="menu"> Browse A-Z</div></router-link>                  
-                  <router-link to="/Contact"><div class="menu"><i class="fas fa-comment"></i> Contact</div></router-link>
+                  <router-link to="/dictionary/search"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
+                  <router-link to="/browse"> <div class="menu"> Browse A-Z</div></router-link>                  
+                  <router-link to="/contact"><div class="menu"><i class="fas fa-comment"></i> Contact</div></router-link>
        </div>
        <div class="logDetails" >
          <button class="primaryButton" tabindex="0" type="Button" @click="logout" v-if="token">
@@ -59,9 +59,9 @@ myFunction() {
 },
 goTo(event) {
     if(event === "signUp") {
-    this.$router.push('/SignUp');
+    this.$router.push('/signup');
     } else if(event === 'login') {
-        this.$router.push('/Login');
+        this.$router.push('/login');
     } else {
          this.$confirm({
             auth: false,
