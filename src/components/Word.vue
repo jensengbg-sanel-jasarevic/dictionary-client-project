@@ -144,7 +144,7 @@ textarea {
   outline: none;
   margin-top: 2%;
   margin-bottom: 2%;
-  border-color: #ffb000;
+  border-color: #1f1671;
   border-radius: 8px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-box-shadow: none;
