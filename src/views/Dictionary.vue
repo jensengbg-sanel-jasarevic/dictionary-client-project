@@ -68,7 +68,7 @@ methods: {
   min-width: 55vw;
   min-height: 30px;
   border-radius: 20px;
-  border: 1px solid #ffb000;
+  border: 1px solid #1f1671;
 }
 input[type=text] {
   padding: 10px;

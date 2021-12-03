@@ -89,7 +89,7 @@ ul {
 li {
   padding: 1%;
   border-radius: 20px;
-  border: 1.5px solid #ec4b43;
+  border: 1.5px solid #1f1671;
 }
 #clicked-letter {
   color: #ec4b43;

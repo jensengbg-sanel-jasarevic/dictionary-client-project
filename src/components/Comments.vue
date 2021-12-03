@@ -45,7 +45,7 @@ methods: {
   max-width: 60%;
   border-radius: 15px ;
   border-style: solid;
-  border-color: #1d2a57;
+  border-color: #1f1671;
   margin-left:20%;
   margin-top: 1%;
   margin-bottom: 1%;
