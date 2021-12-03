@@ -1,6 +1,6 @@
 <template>
   <div class="word-data-container" v-if="word">
-    <h1>{{ word }}</h1>
+    <h1>Search: <span>{{ word }}</span></h1>
     <p id ="word-updated">{{ updatedWordNotification }}</p>
     <p class="author">
       <img src="@/assets/iconpacks-person.svg" alt="Author">
@@ -103,12 +103,15 @@ methods: {
 .word-data-container{
   display: flex;
   flex-direction: column;
-  border-top: 1.5px solid #a0d18c;
+  border-top: 1.5px solid #ffb000;
   max-width: 80vw;
   padding: 2%;
   margin-top: 2%;
   margin-left: auto;
   margin-right: auto;
+}
+span {
+  color:#ec4b43;
 }
 .author {
   color: #6eb1e1;
@@ -120,7 +123,7 @@ methods: {
   height: 1.5em;
 }
 #header-comments {
-  border-top: 1.5px solid #a0d18c;
+  border-top: 1.5px solid #ffb000;
   padding: 2%;
 }
 .comment-word-form {
@@ -141,6 +144,7 @@ textarea {
   outline: none;
   margin-top: 2%;
   margin-bottom: 2%;
+  border-color: #ffb000;
   border-radius: 8px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-box-shadow: none;
