@@ -78,12 +78,12 @@ methods: {
   updateCommentVotes(comment) {
    setTimeout( () => {  
     this.$store.dispatch('getComments', comment.word) 
+    }, 500)
     let votesCounter = document.getElementById(`comment-votes-${comment.id}`)
     votesCounter.style.width = "15%"
     votesCounter.style.backgroundColor = "#1ac61a"
     votesCounter.style.color = "white"
     votesCounter.style.borderRadius = "6px"
-    }, 700)
   },  
   postComment(){
   this.$store.dispatch("postComment", { comment: this.textareaInputValue, word: this.word });
