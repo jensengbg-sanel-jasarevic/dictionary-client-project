@@ -58,7 +58,7 @@ return {
   if(letter.length > 1) {
     return
     } else {
-    this.clickedLetter = letter
+    this.clickedLetter = letter.toUpperCase()
     this.$store.dispatch("getWordsByLetter", letter);
     } 
   }   
