@@ -3,7 +3,7 @@
       <form class="search-word-form" @submit.prevent="getWord">
         <h1>IT Dictionary</h1>
         <p>The Online IT Dictionary for Students, Educators and IT Professionals</p>
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for a Word" autocomplete="off">
+        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for a word" autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <Word />
@@ -68,7 +68,7 @@ methods: {
   min-width: 55vw;
   min-height: 30px;
   border-radius: 20px;
-  border: 1px solid #a0d18c;
+  border: 1px solid #ffb000;
 }
 input[type=text] {
   padding: 10px;

@@ -26,4 +26,11 @@ this.$router.push(`/dictionary/${this.word.toLowerCase()}`);
 </script>
 
 <style lang="scss" scoped>
+p {
+  text-align: left;
+  background-color: #F5F5F5;
+  padding: 2%;
+  cursor: pointer;
+  border-radius: 10px;
+}
 </style>
