@@ -1,76 +1,62 @@
 <template>
   <section class="dicSec">
     <form class="search-word-form" @submit.prevent="getWord">
+      <h1>IT Dictionary</h1>
+      <p>
+        The Online IT Dictionary for Students, Educators and IT Professionals
+      </p>
       <input
         v-model="searchInputValue"
         v-on:keyup.enter="getWord"
         type="text"
-        placeholder="Search in glossary"
+        placeholder="Search for a word"
         autocomplete="off"
       />
-      <br />
-      <button class="primaryButton" tabindex="0" type="submit">
-        <span class="buttonLabel">Search word</span>
-      </button>
+      <button type="submit">Search word</button>
     </form>
-    <div class="word-data-container" v-if="word">
-      <h1>{{ word }}</h1>
-      <p>{{ wordInfo }}</p>
-      <p class="author">Author: {{ wordAuthor }}</p>
-      <h4>Comments</h4>
-      <Comments
-        v-for="comment in wordComments"
-        :key="comment.id"
-        :comment="comment"
-      />
-      <form class="comment-word-form" @submit.prevent="postComment">
-        <label for="comments"
-          >Suggest a more clear definition or more simple explanation for this
-          word</label
-        >
-        <textarea
-          id="comments"
-          v-model="textareaInputValue"
-          rows="5"
-          placeholder="Share your thought..."
-        />
-        <input type="submit" value="Post" />
-      </form>
-    </div>
+    <Word />
   </section>
 </template>
 
 <script>
-import Comments from "@/components/Comments";
-
+import Word from '@/components/Word'
 export default {
   name: "Dictionary",
 
-  components: {
-    Comments,
-  },
+components: {
+   Word
+},
 
-  data() {
-    return {
-      searchInputValue: null,
-      textareaInputValue: null,
-    };
-  },
+data() {
+return {
+  searchInputValue: null,
+  }
+},
 
-  computed: {
-    word() {
-      return this.$store.state.word;
-    },
-    wordInfo() {
-      return this.$store.state.wordInfo;
-    },
-    wordAuthor() {
-      return this.$store.state.wordAuthor;
-    },
-    wordComments() {
-      return this.$store.state.wordComments;
-    },
-  },
+mounted() {
+  if(this.$route.params.search === "start"){ // Default URL for searching words in app
+    return
+  } else { // Handling URL Parameters (Query Strings)
+    const queryString = this.$route.params.search.toUpperCase()
+    this.$store.dispatch("getWord", queryString);
+    this.$store.dispatch("getComments", queryString);
+  }
+},
+
+methods: {
+  // State management with Vues ecosystem "Vuex"
+  // Vuex = tool that works as an environment for the components in a Vue app
+  // Send word request from client to the backend API server (action in Vuex)
+  // Store response data in Vuex environment (mutate & keep it in the state)
+  // Components now can utilize data from the centralized store of the app
+  getWord(){
+  this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
+  this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
+  if (this.$route.path != `/dictionary/${this.searchInputValue}`) {
+    this.$router.push(`/dictionary/${this.searchInputValue}`);
+    }
+  }
+  }
 
   methods: {
     postComment() {
@@ -94,7 +80,6 @@ export default {
   overflow-x: auto;
   margin-top: 5%;
 }
-
 .search-word-form {
   display: flex;
   flex-direction: column;
@@ -104,7 +89,7 @@ export default {
   min-width: 55vw;
   min-height: 30px;
   border-radius: 20px;
-  border: 1px solid #a0d18c;
+  border: 1px solid #1f1671;
 }
 input[type="text"] {
   padding: 10px;
@@ -117,52 +102,6 @@ input[type="text"] {
   background-color: #dadce0;
   cursor: pointer;
   height: 40px;
-}*/
-.word-data-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #a0d18c;
-  max-width: 85vw;
-  padding: 2%;
-  margin-top: 2%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.comment-word-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 3%;
-}
-.comment-word-form > input[type="submit"] {
-  background-color: #226e4f;
-  border: none;
-  padding: 16px 32px;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 0 auto;
-  margin-bottom: 2%;
-  border-radius: 4px;
-}
-
-.comment-word-form > input[type="submit"] :hover:enabled {
-  background-color: #29b97d;
-}
-
-textarea {
-  outline: none;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  border-radius: 8px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  resize: none;
-  padding: 15px;
-}
-label {
-  font-size: 1.5em;
 }
 
 .bold {

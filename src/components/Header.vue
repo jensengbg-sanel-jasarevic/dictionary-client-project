@@ -13,14 +13,17 @@
               <i class="fas fa-home"></i> Home
             </div></router-link
           >
-          <router-link to="/Dictionary">
+          <router-link to="/dictionary/start">
             <div class="menu">
               <i class="fas fa-search"></i> Dictionary
             </div></router-link
           >
-          <router-link to="/Contact"
+          <router-link to="/browse">
+            <div class="menu">Browse A-Z</div></router-link
+          >
+          <router-link to="/contact"
             ><div class="menu">
-              <i class="fas fa-comment"></i>Contact
+              <i class="fas fa-comment"></i> Contact
             </div></router-link
           >
           <router-link to="/Profile" v-if="user.email != null"
@@ -35,7 +38,7 @@
             tabindex="0"
             type="Button"
             @click="logout"
-            v-if="user.email != null"
+            v-if="token"
           >
             <span class="buttonLabel">Logout</span>
           </button>
@@ -103,9 +106,9 @@ export default {
     //Method called on login and signup click
     goTo(event) {
       if (event === "signUp") {
-        this.$router.push("/SignUp");
+        this.$router.push("/signUp");
       } else if (event === "login") {
-        this.$router.push("/Login");
+        this.$router.push("/login");
       } else {
         this.$confirm({
           auth: false,
