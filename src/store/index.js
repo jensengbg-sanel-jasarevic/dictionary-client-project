@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import userService from "../store/userService";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com/api",
+    API_URL: "http://localhost:5000/api",
     word: null,
     wordInfo: null,
     wordAuthor: null,
@@ -45,5 +46,6 @@ export default new Vuex.Store({
     }        
   },
   modules: {
-  }
+    userService,
+}
 })
