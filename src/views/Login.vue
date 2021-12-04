@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit()">
     <h3>Login</h3>
     <label>Email</label>
     <input type="email" v-model="email" required />
@@ -57,7 +57,7 @@ export default {
               },
             });
           } else {
-            this.$router.push("/");
+            this.$router.push("/profile");
           }
         });
       }
