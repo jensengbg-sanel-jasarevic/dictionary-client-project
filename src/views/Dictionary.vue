@@ -1,7 +1,7 @@
 <template>
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
-        <h1>IT Dictionary</h1>
+        <h1 id="heading-search-word-form"><b>IT</b> Dictionary</h1>
         <p>The Online IT Dictionary for Students, Educators and IT Professionals
         </p>
         <input 
@@ -10,7 +10,7 @@
         type="text" 
         placeholder="Search for a word" 
         autocomplete="off">
-        <button type="submit">Search word</button>
+        <button type="submit"><i class="fas fa-search"></i>  Search</button>
       </form>
       <WordInfo />
    </section>
@@ -66,6 +66,9 @@ methods: {
     overflow-x: auto;
     margin-top: 5%;
 }
+#heading-search-word-form{
+  font-size: 3em;
+}
 .search-word-form {
   display: flex;
   flex-direction: column;
@@ -85,9 +88,10 @@ input[type=text] {
   margin-top: 2%;
   min-width: 15vw;
   border: none;
-  background-color: #dadce0;
+  background-color: #ec4b43;
   cursor: pointer;
   height: 40px;
+  color: white;
 }
 
 .bold {

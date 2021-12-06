@@ -132,7 +132,8 @@ span {
   margin-top: 3%;
 }
 .comment-word-form > input[type=submit]{
-  background-color: #dadce0;
+  background-color: #ec4b43;
+  color: white;
   border: none;
   padding: 16px 32px;
   text-decoration: none;
