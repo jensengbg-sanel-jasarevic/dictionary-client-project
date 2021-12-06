@@ -10,10 +10,10 @@
     </p>
     <p> If you have feedback about some definition, please register on the website.
         This will allow you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
-        This is achieved by simply leaving a comment in which you suggest a clearer definition or explanation.
-        Your comment enables site visitors in making votes for it, if they think the definition has been put forward in a clear manner.
-        In case a comment has many votes it indicates that visitors like the definition, this could produce
-        editors of the site to approve it which will modify the sites primary definition to yours.
+        This is achieved by simply leaving a comment on a word in which you suggest a clearer definition or explanation.
+        Your comment enables site visitors to vote for it, if they think yours alternative definition in the comment has been put forward in a more clear manner.
+        Comment with many votes is a evident indication that the definition is well-liked by visitors, this could produce
+        editors of the site to approve it which will modify the sites primary definition of a word to yours proposal.
     </p>  
      <h1>
        Contact Us
