@@ -92,6 +92,7 @@
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    min-width: 300px;
     max-width: 1000px;
     max-height: 500px;
   }
