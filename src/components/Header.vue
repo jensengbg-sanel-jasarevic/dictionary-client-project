@@ -1,208 +1,145 @@
 <template>
   <header>
-    <div class="headerDiv">
-      <img src="../assets/logo.png" alt="logo" />
-      <a href="javascript:void(0);" class="icon" @click="myFunction">
-        <i class="fas fa-bars"></i
-      ></a>
-      <!-- Font Awesome is designed to be used with inline elements, and we recommend sticking with a consistent HTML element to reference them by in your project-->
-      <div class="navDiv" id="nav">
-        <div class="nav">
-          <router-link to="/"
-            ><div class="menu">
-              <i class="fas fa-home"></i> Home
-            </div></router-link
-          >
-          <router-link to="/dictionary/start">
-            <div class="menu">
-              <i class="fas fa-search"></i> Dictionary
-            </div></router-link
-          >
-          <router-link to="/browse">
-            <div class="menu">Browse A-Z</div></router-link
-          >
-          <router-link to="/contact"
-            ><div class="menu">
-              <i class="fas fa-comment"></i> Contact
-            </div></router-link
-          >
-          <router-link to="/Profile" v-if="user.email != null"
-            ><div class="menu">
-              <i class="fas fa-user"></i>Profile
-            </div></router-link
-          >
-        </div>
-        <div class="logDetails">
-          <button
-            class="primaryButton"
-            tabindex="0"
-            type="Button"
-            @click="logout"
-            v-if="token"
-          >
+      <div class="headerDiv">
+          <img src="../assets/logo.png" alt="logo" >
+           <a href="javascript:void(0);" class="icon" @click="myFunction">
+            <i class="fas fa-bars"></i></a> <!-- Font Awesome is designed to be used with inline elements, and we recommend sticking with a consistent HTML element to reference them by in your project-->
+           <div class="navDiv" id='nav'>
+           <div class="nav">
+                  <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
+                  <router-link to="/dictionary/start"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
+                  <router-link to="/browse"> <div class="menu"> Browse A-Z</div></router-link>                  
+                  <router-link to="/contact"><div class="menu"><i class="fas fa-comment"></i> About &amp; Contact</div></router-link>
+       </div>
+       <div class="logDetails" >
+         <button class="primaryButton" tabindex="0" type="Button" @click="logout" v-if="token">
             <span class="buttonLabel">Logout</span>
-          </button>
-          <button
-            class="primaryButton"
-            tabindex="0"
-            type="Button"
-            @click="goTo('login')"
-            v-if="user.email == null"
-          >
+            </button>
+        <button class="primaryButton" tabindex="0" type="Button" @click="goTo('login')" v-if="!token">
             <span class="buttonLabel">Login</span>
-          </button>
-          &nbsp;&nbsp;
-          <button
-            class="primaryButton"
-            tabindex="0"
-            type="Button"
-            @click="goTo('signUp')"
-            v-if="user.email == null"
-          >
+            </button>
+            &nbsp;&nbsp;
+            <button class="primaryButton" tabindex="0" type="Button" @click="goTo('signUp')" v-if="!token">
             <span class="buttonLabel">Sign Up</span>
-          </button>
-        </div>
+            </button>
+                </div>
+                   </div>
       </div>
-    </div>
+      
   </header>
 </template>
 
 <script>
 export default {
   //Function to get the token generated for the user
-  computed: {
-    token: {
-      get: function () {
+   computed: {
+    token : {
+       get: function () {
         return sessionStorage.getItem("token");
-      },
-      set: function () {},
-    },
-    user: {
-      get: function () {
-        return this.$store.state.userService.user;
       },
       set: function () {},
     },
   },
   //This function will be excecuted when the screen resized and loaded
-  mounted() {
-    window.onresize = this.resize;
-  },
-  //Class name will be changed as per the screen size
-  methods: {
-    resize() {
-      var x = document.getElementById("nav");
-      x.className = "navDiv";
+    mounted() { 
+       window.onresize = this.resize
     },
-    //Class name toggled as per the scree size
-    myFunction() {
-      var x = document.getElementById("nav");
-      if (x.className === "navDiv") {
-        x.className += " responsive";
-      } else {
-        x.className = "navDiv";
-      }
-    },
-    //Method called on login and signup click
-    goTo(event) {
-      if (event === "signUp") {
-        this.$router.push("/signUp");
-      } else if (event === "login") {
-        this.$router.push("/login");
-      } else {
-        this.$confirm({
-          auth: false,
-          message: "Invalid Event received",
-          button: {
-            no: "Ok",
-          },
-        });
-      }
-    },
-    logout() {
-      sessionStorage.removeItem("token");
-      const userDetails = {
-        email: this.user.email,
-        password: this.user.password,
-      };
-      this.$store.dispatch("logout", userDetails).then(() => {
-        const error = this.$store.state.userService.error;
-        if (error != "") {
-          this.$confirm({
+    methods: {
+        resize() {
+            var x = document.getElementById("nav");
+            x.className ="navDiv";
+        },
+myFunction() {
+   var x = document.getElementById("nav");
+  if (x.className === "navDiv") {
+    x.className += " responsive";
+  } else {
+    x.className = "navDiv";
+  }
+},
+goTo(event) {
+    if(event === "signUp") {
+    this.$router.push('/signup');
+    } else if(event === 'login') {
+        this.$router.push('/login');
+    } else {
+         this.$confirm({
             auth: false,
-            message: error,
+            message: "Invalid Event received",
             button: {
               no: "Ok",
             },
           });
-        } else {
-          this.$router.push("/Login");
-        }
-      });
-    },
-  },
-};
+    }
+},
+logout() {
+      sessionStorage.removeItem("token");
+      location.reload();
+    }
+}
+}
 </script>
 
 <style scoped lang="scss">
 @import "../style/common";
 header {
-  position: sticky;
-  top: 0%;
-  color: #fff;
-  display: flex;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  flex-direction: column;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
+    position: sticky;
+    top: 0%;
+    color: #fff;
+    display: flex;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-direction: column;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
     linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
     linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
-    linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222d;
-  background-size: 20px 20px;
+    linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222D;
+    background-size: 20px 20px;
+    
 }
-.headerDiv {
-  display: flex;
-  position: relative;
-  align-items: center;
-  padding-left: 24px;
-  padding-right: 24px;
-  color: #fff;
+.headerDiv{
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+    color: #fff;
 }
 
-.navDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 100%;
-  padding-top: 8px;
-  color: #13222d;
+.navDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding-top: 8px;
+    color: #13222D;
 }
 
 .nav {
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 30%;
-  overflow: hidden;
+    display: flex;
+    justify-content:flex-start;
+    margin-left: 30%;
+    overflow: hidden;
 }
 
-.nav a {
-  color: white;
-  margin-right: 20px;
-  text-decoration: none;
-  margin-right: 20px;
-  background-color: transparent;
-  float: left;
-  display: block;
+.nav a{
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+    margin-right: 20px;
+    background-color: transparent;
+    float: left;
+    display: block;
 }
 
 .nav a.router-link-exact-active {
-  color: rgb(250, 242, 185);
-  text-decoration: none;
+    color: rgb(250, 242, 185);
+    text-decoration: none;
 }
 .nav a:hover {
-  color: rgb(158, 151, 100);
-  text-decoration: none;
+    color: rgb(158, 151, 100);
+    text-decoration: none;
 }
 
 .icon {
@@ -211,31 +148,20 @@ header {
 }
 
 img {
-  vertical-align: middle;
-  border-style: none;
-  height: 80px;
+    vertical-align: middle;
+    border-style: none;
+    height: 80px;
 }
 
 .logDetails {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-label {
-  color: #fff;
-  display: inline-block;
-  margin: 15px 0 10px;
-  text-transform: uppercase;
+    display: flex; 
+    align-items: flex-end;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 600px) {
-  .navDiv .nav {
-    display: none;
-  }
-  .navDiv .logDetails {
-    display: none;
-  }
+  .navDiv .nav {display: none;}
+  .navDiv .logDetails {display: none;}
   .icon {
     float: right;
     display: block;
@@ -243,40 +169,40 @@ label {
 }
 
 @media screen and (max-width: 600px) {
-  .navDiv.navDiv.responsive {
-    top: 0;
-    margin-top: 50px;
-    right: 0;
-    height: 80%;
-    position: fixed;
-    width: 25%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-direction: column;
+    .navDiv.navDiv.responsive {
+  top: 0;
+  margin-top: 50px;
+  right: 0;
+  height: 80%;
+  position: fixed;
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: column;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
-      linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
-      linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
-      linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222d;
+    linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
+    linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
+    linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222D;
     background-size: 20px 20px;
-  }
-  .icon {
+    }
+.icon {
     position: absolute;
-    top: 1;
+    top: 1;   
     right: 0;
     font-size: 25px;
     margin-right: 20px;
   }
-  .navDiv.responsive .nav {
-    margin-left: 0;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    flex-grow: 1;
-    align-items: center;
-  }
-
+  .navDiv.responsive  .nav {
+      margin-left:0;
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      flex-grow: 1;
+       align-items: center;
+     }
+  
   .navDiv.responsive .nav a {
     display: block;
     text-align: left;
@@ -293,8 +219,8 @@ label {
     margin-right: 10px;
   }
   .navDiv.responsive .menu {
-    display: flex;
-    flex-direction: row;
+     display: flex;
+      flex-direction: row;
   }
 }
 </style>
