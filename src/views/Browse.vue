@@ -1,6 +1,6 @@
 <template>
     <section class="browseSec">
-    <h1>Browse the dictionary entries from A to Z</h1>
+    <h1>Browse the dictionary entries alphabetically</h1>
     <p>Click on a specific letter and some of the most of the common words and terms in today's IT terminology will be displayed. View the definition by clicking further on your choice of word.</p>
     <ul v-on:click="routeToWordsByLetter">
       <li>A</li>

@@ -9,7 +9,7 @@
                   <router-link to="/"><div class="menu"><i class="fas fa-home"></i> Home</div></router-link>
                   <router-link to="/dictionary/start"> <div class="menu"><i class="fas fa-search"></i> Dictionary</div></router-link>
                   <router-link to="/browse"> <div class="menu"> Browse A-Z</div></router-link>                  
-                  <router-link to="/contact"><div class="menu"><i class="fas fa-comment"></i> Contact</div></router-link>
+                  <router-link to="/contact"><div class="menu"><i class="fas fa-comment"></i> About &amp; Contact</div></router-link>
        </div>
        <div class="logDetails" >
          <button class="primaryButton" tabindex="0" type="Button" @click="logout" v-if="token">

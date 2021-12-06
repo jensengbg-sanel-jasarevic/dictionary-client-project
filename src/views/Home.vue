@@ -1,15 +1,12 @@
 <template>
     <section class="homeSec">
-     <h1>Introducing webdictionary.com's New Dictionary Design!</h1>
+     <h1>Introducing New Dictionary Design!</h1>
       <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
       to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy! </p>
       <h1>The Only Ad-Free Online Dictionary!</h1>
-      <p>We've made the webdictionary.com dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
+      <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
       We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
     </p>
-      <p>The goal is to explain IT terminology in a way that is easy to understand. We strive for simplicity and accuracy with every definition we publish.
-      If you have feedback about some definition, please register on the website. This allows users the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. If you would like to suggest a new word, please contact us.
-      </p>
    </section>
 </template>
 
