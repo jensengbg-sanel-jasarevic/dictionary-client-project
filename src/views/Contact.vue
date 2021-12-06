@@ -3,15 +3,15 @@
      <h1>
        About Us
     </h1>
-    <p>We provide a free online dictionary site with words and terms from the IT field.</p>
+    <p>We provide a free online dictionary website with words and terms from the IT field.</p>
     <p>The goal is simple — we want to make IT terminology easy to understand.
        Instead of using high-level terminology, definitions are strived to be written in simple everyday language.
-      We strive for simplicity and accuracy with every definition we publish and believe that simple explanations are the way to go.
+      We strive for simplicity and accuracy with every definition we publish.
     </p>
     <p> If you have feedback about some definition, please register on the website.
-        This allows you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
-        Simply by leaving comments on words, the site visitors can vote on your comments. In case it gets many votes,
-        editors of the site have the option to approve your definition. This will simply modify the sites primary defintion to yours.
+        This will allow you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
+        By commenting on words you will enable visitors of the website to vote for your comment. In case a comment has many votes,
+        editors of the site have the option to approve it for the reason that it's well-liked by site visitors. The approval simply means that the sites primary definition will be modified to yours.
         If you would like to suggest a new word, please contact us.
     </p>  
      <h1>

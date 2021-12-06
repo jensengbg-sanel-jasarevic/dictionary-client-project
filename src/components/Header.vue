@@ -23,7 +23,7 @@
           >
           <router-link to="/contact"
             ><div class="menu">
-              <i class="fas fa-comment"></i> About &amp; Contact
+              <i class="fas fa-comment"></i> Contact
             </div></router-link
           >
           <router-link to="/Profile" v-if="user.email != null"

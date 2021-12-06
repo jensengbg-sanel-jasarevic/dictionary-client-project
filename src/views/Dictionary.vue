@@ -12,17 +12,17 @@
         autocomplete="off">
         <button type="submit">Search word</button>
       </form>
-      <Word />
+      <WordInfo />
    </section>
 </template>
 
 <script>
-import Word from '@/components/Word'
+import WordInfo from '@/components/WordInfo'
 export default {
 name: "Dictionary",
 
 components: {
-   Word
+   WordInfo
 },
 
 data() {
