@@ -227,14 +227,12 @@ form {
   border-radius: 10px;
   min-height: 75vh;
 }
-
 label {
   color: rgb(73, 72, 72);
   display: inline-block;
   margin: 15px 0 10px;
   text-transform: uppercase;
 }
-
 input,
 select {
   display: block;
@@ -245,7 +243,6 @@ select {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-
 input[type="checkbox"] {
   display: inline-block;
   width: 16px;
@@ -253,7 +250,6 @@ input[type="checkbox"] {
   position: relative;
   top: 2px;
 }
-
 .error {
   color: #ff0000;
   margin-top: 10px;
@@ -267,13 +263,11 @@ h3 {
   line-height: 1.2;
   margin-top: 0;
 }
-
 .register-user {
   font-size: 24px;
   font-weight: 500;
   color: rgb(26, 114, 80);
 }
-
 .popup-input {
   display: block;
   width: 60%;
@@ -281,7 +275,6 @@ h3 {
   border: 1px solid #ddd;
   color: #555;
 }
-
 @media screen and (max-width: 600px) {
   form {
     max-width: 500px;
@@ -291,7 +284,6 @@ h3 {
     border-radius: 5px;
     min-height: 75vh;
   }
-
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
@@ -299,7 +291,6 @@ h3 {
     font-size: 0.8em;
     text-transform: uppercase;
   }
-
   input,
   select {
     display: block;
@@ -310,7 +301,6 @@ h3 {
     border-bottom: 1px solid #ddd;
     color: #555;
   }
-
   input[type="checkbox"] {
     display: inline-block;
     width: 10px;
@@ -318,14 +308,12 @@ h3 {
     position: relative;
     top: 2px;
   }
-
   .error {
     color: #ff0000;
     margin-top: 10px;
     font-size: 0.4em;
     font-weight: bold;
   }
-
   h3 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
@@ -333,7 +321,6 @@ h3 {
     line-height: 1.2;
     margin-top: 0;
   }
-
   .register-user {
     font-size: 1.25rem;
     font-weight: bold;
