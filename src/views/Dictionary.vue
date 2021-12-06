@@ -1,19 +1,27 @@
 <template>
-    <section class="dicSec">
-      <form class="search-word-form" @submit.prevent="getWord">
-        <h1>IT Dictionary</h1>
-        <p>The Online IT Dictionary for Students, Educators and IT Professionals</p>
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for a word" autocomplete="off">
-        <button type="submit">Search word</button>
-      </form>
-      <Word />
-   </section>
+  <section class="dicSec">
+    <form class="search-word-form" @submit.prevent="getWord">
+      <h1>IT Dictionary</h1>
+      <p>
+        The Online IT Dictionary for Students, Educators and IT Professionals
+      </p>
+      <input
+        v-model="searchInputValue"
+        v-on:keyup.enter="getWord"
+        type="text"
+        placeholder="Search for a word"
+        autocomplete="off"
+      />
+      <button type="submit">Search word</button>
+    </form>
+    <Word />
+  </section>
 </template>
 
 <script>
 import Word from '@/components/Word'
 export default {
-name: "Dictionary",
+  name: "Dictionary",
 
 components: {
    Word
@@ -41,23 +49,36 @@ methods: {
   // Send word request from client to the backend API server (action in Vuex)
   // Store response data in Vuex environment (mutate & keep it in the state)
   // Components now can utilize data from the centralized store of the app
-  getWord(){ 
+  getWord(){
   this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
   this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
   if (this.$route.path != `/dictionary/${this.searchInputValue}`) {
     this.$router.push(`/dictionary/${this.searchInputValue}`);
     }
-  }  
+  }
   }
 
+  methods: {
+    postComment() {
+      this.$store.dispatch("postComment", {
+        comment: this.textareaInputValue,
+        word: this.word,
+      });
+    },
+    getWord() {
+      this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
+      this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
+    },
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../style/common";
 .dicSec {
-    overflow-y: auto;
-    overflow-x: auto;
-    margin-top: 5%;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-top: 5%;
 }
 .search-word-form {
   display: flex;
@@ -70,11 +91,11 @@ methods: {
   border-radius: 20px;
   border: 1px solid #1f1671;
 }
-input[type=text] {
+input[type="text"] {
   padding: 10px;
   outline: none;
 }
-.search-word-form > button {
+/*.search-word-form > button {
   margin-top: 2%;
   min-width: 15vw;
   border: none;
@@ -105,9 +126,9 @@ h3 {
 
 @media only screen and (max-width: 800px) {
   .dicSec {
-  overflow-y: auto;
-  overflow-x: auto;
-  margin-top: 25%;
-}
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-top: 25%;
+  }
 }
 </style>

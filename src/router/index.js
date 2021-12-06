@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
     {
@@ -33,7 +33,12 @@ const routes = [
         path:'/Login',
         name: 'Login',
         component: () => import('../views/Login.vue')
-    }
+    },
+    {
+      path: "/Profile",
+      name: "Profile",
+      component: () => import("../views/Profile.vue"),
+    },
 ]
 
 const router = new VueRouter({
@@ -53,4 +58,13 @@ const router = new VueRouter({
   
 export default router
 
+router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem("token");
+  if (to.matched.some((route) => route.meta.requiresAuth && !token)) {
+    next({ name: "Login" });
+  } else {
+    next();
+  }
+});
 
+export default router;
