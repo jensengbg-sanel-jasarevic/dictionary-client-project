@@ -6,12 +6,12 @@
     <p>We provide a free online dictionary site with words and terms from the IT field.</p>
     <p>The goal is simple — we want to make IT terminology easy to understand.
        Instead of using high-level terminology, definitions are strived to be written in simple everyday language.
-        We believe that simple explanations are the way to go. We strive for simplicity and accuracy with every definition we publish.
+      We strive for simplicity and accuracy with every definition we publish and believe that simple explanations are the way to go.
     </p>
     <p> If you have feedback about some definition, please register on the website.
         This allows you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
-        Simply by leaving comments on words, the visitors of the site can vote on your comments. In case it gets many votes,
-        editors of the site have option to approve your definition. This simply means it modifies the sites primary defintion to yours.
+        Simply by leaving comments on words, the site visitors can vote on your comments. In case it gets many votes,
+        editors of the site have the option to approve your definition. This will simply modify the sites primary defintion to yours.
         If you would like to suggest a new word, please contact us.
     </p>  
      <h1>

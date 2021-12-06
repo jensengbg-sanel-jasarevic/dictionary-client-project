@@ -2,8 +2,14 @@
     <section class="dicSec">
       <form class="search-word-form" @submit.prevent="getWord">
         <h1>IT Dictionary</h1>
-        <p>The Online IT Dictionary for Students, Educators and IT Professionals</p>
-        <input v-model="searchInputValue" v-on:keyup.enter="getWord" type="text" placeholder="Search for a word" autocomplete="off">
+        <p>The Online IT Dictionary for Students, Educators and IT Professionals
+        </p>
+        <input 
+        v-model="searchInputValue" 
+        v-on:keyup.enter="getWord" 
+        type="text" 
+        placeholder="Search for a word" 
+        autocomplete="off">
         <button type="submit">Search word</button>
       </form>
       <Word />
@@ -26,9 +32,9 @@ return {
 },
 
 mounted() {
-  if(this.$route.params.search === "start"){ // Default URL for searching words in app
+  if(this.$route.params.search === "start"){ // URL parameter for searching words in app
     return
-  } else { // Handling URL Parameters (Query Strings)
+  } else { // Handling URL Parameters (Query Strings) 
     const queryString = this.$route.params.search.toUpperCase()
     this.$store.dispatch("getWord", queryString);
     this.$store.dispatch("getComments", queryString);
@@ -53,7 +59,8 @@ methods: {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../style/common";
 .dicSec {
     overflow-y: auto;
     overflow-x: auto;

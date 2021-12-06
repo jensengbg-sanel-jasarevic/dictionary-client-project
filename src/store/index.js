@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 import userService from "../store/userService";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com", //
+    API_URL: "https://serverexamensarbete.herokuapp.com", 
     wordsByLetter: null,
     word: null,
     wordInfo: null,

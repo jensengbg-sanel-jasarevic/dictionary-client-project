@@ -92,6 +92,7 @@
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    min-width: 300px;
     max-width: 1000px;
     max-height: 500px;
   }
@@ -138,7 +139,7 @@
     color: #fff;
     background: transparent;
   }
-
+  
   @media screen and (max-width: 600px) {
 .popUp {
     overflow-x: auto;
