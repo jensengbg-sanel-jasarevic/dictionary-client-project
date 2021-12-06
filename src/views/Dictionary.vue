@@ -38,6 +38,8 @@ mounted() {
     const queryString = this.$route.params.search.toUpperCase()
     this.$store.dispatch("getWord", queryString);
     this.$store.dispatch("getComments", queryString);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0
   }
 },
 
