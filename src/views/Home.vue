@@ -30,7 +30,8 @@ export default {
     grid-template-columns: 30% 70%;
     grid-template-areas: "left right";
     overflow-y: auto;
-    overflow-x: auto;    
+    overflow-x: auto;
+    min-height: 80vh;    
 }
 
 .left {
