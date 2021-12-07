@@ -3,16 +3,17 @@
      <h1>
        About Us
     </h1>
-    <p>We provide a free online dictionary site with words and terms from the IT field.</p>
+    <p>We provide a free online dictionary website with words and terms from the IT field.</p>
     <p>The goal is simple — we want to make IT terminology easy to understand.
        Instead of using high-level terminology, definitions are strived to be written in simple everyday language.
-        We believe that simple explanations are the way to go. We strive for simplicity and accuracy with every definition we publish.
+      We strive for simplicity and accuracy with every definition we publish.
     </p>
     <p> If you have feedback about some definition, please register on the website.
-        This allows you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
-        Simply by leaving comments on words, the visitors of the site can vote on your comments. In case it gets many votes,
-        editors of the site have option to approve your definition. This simply means it modifies the sites primary defintion to yours.
-        If you would like to suggest a new word, please contact us.
+        This will allow you the opportunity to contribute in creating the websites content more qualitative by helping in defining or explaining words in a more clearly way. 
+        This is achieved by simply leaving a comment on a word in which you suggest a clearer definition or explanation.
+        Your comment enables site visitors to vote for it, if they think yours alternative definition in the comment has been put forward in a more clear manner.
+        Comment with many votes is a evident indication that the definition is well-liked by visitors, this could produce
+        editors of the site to approve it which will modify the sites primary definition of a word to yours proposal.
     </p>  
      <h1>
        Contact Us

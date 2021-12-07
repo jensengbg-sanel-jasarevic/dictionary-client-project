@@ -86,7 +86,6 @@ export default {
         });
       }
     },
-
     deleteUser() {
       this.$confirm({
         auth: false,
@@ -136,7 +135,6 @@ export default {
   border-radius: 10px;
   min-height: 75vh;
 }
-
 label {
   color: rgb(73, 72, 72);
   display: inline-block;
@@ -167,7 +165,6 @@ h3 {
   line-height: 1.2;
   margin-top: 0;
 }
-
 .popup-input {
   display: block;
   width: 60%;
@@ -175,13 +172,11 @@ h3 {
   border: 1px solid #ddd;
   color: #555;
 }
-
 .button-div {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
-
 @media screen and (max-width: 600px) {
   .profile-div {
     max-width: 500px;
@@ -191,7 +186,6 @@ h3 {
     border-radius: 5px;
     min-height: 75vh;
   }
-
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
@@ -200,7 +194,6 @@ h3 {
     text-transform: uppercase;
     font-weight: bold;
   }
-
   .labelValue {
     display: block;
     margin: 5px 0px 0px 0px !important;
@@ -212,14 +205,12 @@ h3 {
     font-weight: none !important;
     text-transform: none;
   }
-
   .error {
     color: #ff0000;
     margin-top: 10px;
     font-size: 0.4em;
     font-weight: bold;
   }
-
   h3 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
@@ -227,7 +218,6 @@ h3 {
     line-height: 1.2;
     margin-top: 0;
   }
-
   .button-div {
     display: flex;
     flex-direction: column;

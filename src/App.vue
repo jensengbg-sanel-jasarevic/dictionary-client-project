@@ -16,7 +16,6 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-
 export default {
   name: "App",
   components: {
@@ -42,7 +41,6 @@ body {
   width: 100%;
   min-height: 68vh;
 }
-
 .confirmBtn button {
   color: #fff;
   background-color: #226e4f;
@@ -78,7 +76,6 @@ body {
   cursor: pointer;
   background-color: #29b97d;
 }
-
 .confirmBtn button .left {
   border-radius: 0;
 }

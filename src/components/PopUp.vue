@@ -139,7 +139,7 @@
     color: #fff;
     background: transparent;
   }
-
+  
   @media screen and (max-width: 600px) {
 .popUp {
     overflow-x: auto;

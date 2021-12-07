@@ -40,7 +40,6 @@ export default {
           : this.password.length > 6
           ? ""
           : "Password should be more than 6 characters long!";
-
       if (!this.passwordError) {
         const userDetails = {
           email: this.email,
@@ -84,14 +83,12 @@ form {
   text-align: left;
   border-radius: 10px;
 }
-
 label {
   color: rgb(73, 72, 72);
   display: inline-block;
   margin: 15px 0 10px;
   text-transform: uppercase;
 }
-
 input {
   display: block;
   padding: 5px 6px;
@@ -101,7 +98,6 @@ input {
   border-bottom: 1px solid #ddd;
   color: #555;
 }
-
 input[type="checkbox"] {
   display: inline-block;
   width: 16px;
@@ -109,7 +105,6 @@ input[type="checkbox"] {
   position: relative;
   top: 2px;
 }
-
 .error {
   color: #ff0000;
   margin-top: 10px;
@@ -132,7 +127,6 @@ h3 {
     border-radius: 5px;
     min-height: 62vh;
   }
-
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
@@ -140,7 +134,6 @@ h3 {
     font-size: 0.8em;
     text-transform: uppercase;
   }
-
   input {
     display: block;
     padding: 5px 6px;
@@ -150,7 +143,6 @@ h3 {
     border-bottom: 1px solid #ddd;
     color: #555;
   }
-
   input[type="checkbox"] {
     display: inline-block;
     width: 10px;
@@ -158,14 +150,12 @@ h3 {
     position: relative;
     top: 2px;
   }
-
   .error {
     color: #ff0000;
     margin-top: 10px;
     font-size: 0.4em;
     font-weight: bold;
   }
-
   h3 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;

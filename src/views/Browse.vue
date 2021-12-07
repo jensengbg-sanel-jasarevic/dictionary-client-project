@@ -32,18 +32,18 @@
     </ul>
     <div v-if="clickedLetter">
       <h1>Index: <span id="clicked-letter">{{ clickedLetter }}</span></h1>
-      <Words v-for="item in wordsByLetter" :key="item" :word="item"/>
+      <Word v-for="item in wordsByLetter" :key="item" :word="item"/>
     </div>
    </section>
 </template>
 
 <script>
-import Words from '@/views/Words'
+import Word from '@/components/Word'
 export default {
   name: "Browse",
 
 components: {
-Words
+Word
 },
 
 data() {
