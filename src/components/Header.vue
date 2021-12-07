@@ -28,7 +28,7 @@
               <i class="fas fa-comment"></i> Contact
             </div></router-link
           >
-          <router-link to="/Profile" v-if="user.email != null"
+          <router-link to="/profile" v-if="user.email != null"
             ><div class="menu">
               <i class="fas fa-user"></i>Profile
             </div></router-link
@@ -40,7 +40,7 @@
             tabindex="0"
             type="Button"
             @click="logout"
-            v-if="token"
+            v-if="user.email != null"
           >
             <span class="buttonLabel">Logout</span>
           </button>
@@ -138,7 +138,7 @@ export default {
             },
           });
         } else {
-          this.$router.push("/Login");
+          this.$router.push("/login");
         }
       });
     },

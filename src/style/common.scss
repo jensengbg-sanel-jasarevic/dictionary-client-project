@@ -76,9 +76,23 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+.error {
+  color: #ff0000;
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 600px) {
   .primaryButton,
   .secondaryButton {
     font-size: 10px;
+  }
+
+  .error {
+    color: #ff0000;
+    margin-top: 10px;
+    font-size: 0.4em;
+    font-weight: bold;
   }
 }

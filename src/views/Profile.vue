@@ -8,7 +8,7 @@
     <label>Email : </label>
     <p class="labelValue">{{ user.email }}</p>
     <label>Role : </label>
-    <p class="labelValue">{{ user.role }}</p>
+    <p class="labelValue">{{ userRole }}</p>
 
     <!-- Popup to change password -->
     <Popup
@@ -55,6 +55,9 @@ export default {
   computed: {
     user() {
       return this.$store.state.userService.user;
+    },
+    userRole() {
+      return this.user.role == "admin" ? "Admin" : "User";
     },
   },
   methods: {
@@ -168,7 +171,7 @@ h3 {
 .popup-input {
   display: block;
   width: 60%;
-  box-sizing: bordre-box;
+  box-sizing: border-box;
   border: 1px solid #ddd;
   color: #555;
 }
