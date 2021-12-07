@@ -1,12 +1,22 @@
 <template>
     <section class="homeSec">
-     <h1>Introducing New Dictionary Design!</h1>
-      <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
-      to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy! </p>
-      <h1>The Only Ad-Free Online Dictionary!</h1>
-      <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
-      We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
-    </p>
+      <div class="left">
+        <h1 id="announcements-heading">Announcements</h1>
+      </div>
+      <div class="right">
+        <div class="info-box">
+          <h1>Introducing New Dictionary Design!</h1>
+          <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
+          to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy!
+          </p>
+        </div>
+        <div class="info-box">
+          <h1>The Only Ad-Free Online Dictionary!</h1>
+          <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
+          We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
+          </p>
+        </div>
+      </div>
    </section>
 </template>
 
@@ -18,36 +28,36 @@ export default {
 
 <style scoped>
 .homeSec {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-areas: "left right";
     overflow-y: auto;
-    overflow-x: auto;
-    margin-top: 5%;
+    overflow-x: auto;    
 }
 
-.bold {
-  -webkit-text-stroke: medium;
+.left {
+  grid-area: left;
 }
 
-p {
-  text-align: center;
+.right {
+  grid-area: right;
+  margin: auto;
 }
 
-h1,
-h3,
-p {
-  color: #3d2f27;
-}
-
-h3 {
-  margin: 0;
-  padding: 0;
-  font-size: 1.4rem;
+.info-box{
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 2%;
+  background-color: #E9EBEE;
+  max-width: 50vw;
 }
 
 @media screen and (max-width: 600px) {
   .homeSec {
   overflow-y: auto;
   overflow-x: auto;
-  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
 }
 h1 {
   font-size: 1.25rem;

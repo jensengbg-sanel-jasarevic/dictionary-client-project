@@ -18,7 +18,7 @@
 <style lang="scss" scoped>
 @import "../style/common";
 #footer{
-  background-color: rgb(5, 2, 2);
+  background-color: #1d2a57;
   width: 100%;
   display: flex;
   flex-direction: row;

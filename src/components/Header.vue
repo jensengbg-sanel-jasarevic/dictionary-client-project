@@ -19,7 +19,9 @@
             </div></router-link
           >
           <router-link to="/browse">
-            <div class="menu">Browse A-Z</div></router-link
+            <div class="menu">
+              <i class="fas fa-book-open"></i> Browse A-Z
+              </div></router-link
           >
           <router-link to="/contact"
             ><div class="menu">
