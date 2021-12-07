@@ -68,7 +68,6 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err);
-          alert(JSON.stringify(err.response));
           if (err.response.status == 401) {
             ctx.commit("setErrorMsg", "User is unautorized");
           } else {
