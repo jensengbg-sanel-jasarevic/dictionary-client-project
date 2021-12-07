@@ -7,14 +7,12 @@
         <div class="info-box">
           <h1>Introducing New Dictionary Design!</h1>
           <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
-          to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy!
-          </p>
+          to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy!</p>
         </div>
         <div class="info-box">
           <h1>The Only Ad-Free Online Dictionary!</h1>
           <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
-          We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
-          </p>
+          We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!</p>
         </div>
       </div>
    </section>
