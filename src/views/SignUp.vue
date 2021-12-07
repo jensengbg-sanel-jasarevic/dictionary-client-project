@@ -159,7 +159,7 @@ export default {
               (this.adminCode = ""),
               (this.isAdminUser = false),
               setTimeout(() => {
-                this.$router.push("/Login");
+                this.$router.push("/login");
               }, 1000);
           }
         })
@@ -238,7 +238,7 @@ select {
   display: block;
   padding: 5px 6px;
   width: 100%;
-  box-sizing: bordre-box;
+  box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #ddd;
   color: #555;
@@ -249,12 +249,6 @@ input[type="checkbox"] {
   margin: 0 10px 0;
   position: relative;
   top: 2px;
-}
-.error {
-  color: #ff0000;
-  margin-top: 10px;
-  font-size: 0.8em;
-  font-weight: bold;
 }
 h3 {
   font-size: 1.75rem;
@@ -271,7 +265,7 @@ h3 {
 .popup-input {
   display: block;
   width: 60%;
-  box-sizing: bordre-box;
+  box-sizing: border-box;
   border: 1px solid #ddd;
   color: #555;
 }
@@ -296,7 +290,7 @@ h3 {
     display: block;
     padding: 5px 6px;
     width: 100%;
-    box-sizing: bordre-box;
+    box-sizing: border-box;
     border: none;
     border-bottom: 1px solid #ddd;
     color: #555;
@@ -307,12 +301,6 @@ h3 {
     margin: 0 10px 0;
     position: relative;
     top: 2px;
-  }
-  .error {
-    color: #ff0000;
-    margin-top: 10px;
-    font-size: 0.4em;
-    font-weight: bold;
   }
   h3 {
     font-size: 1.25rem;

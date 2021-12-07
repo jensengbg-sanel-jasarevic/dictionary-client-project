@@ -76,8 +76,8 @@ export default {
         .then((response) => {
           const data = response.data;
           if (response.status == 200) {
-            ctx.commit("updateToken", response.cookie);
-            ctx.commit("registerUser", data.user);
+            ctx.commit("updateToken", "");
+            ctx.commit("registerUser", []);
           } else {
             ctx.commit("registerError", data.message);
           }
@@ -138,6 +138,7 @@ export default {
           const data = response.data;
           if (response.status == 200) {
             ctx.commit("registerUser", []);
+            ctx.commit("updateToken", data.token);
           } else {
             ctx.commit("registerError", data.message);
           }

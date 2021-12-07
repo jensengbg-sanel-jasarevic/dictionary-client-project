@@ -1,59 +1,50 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: () => import('../views/Home.vue')
-    },
-    {
-        path: '/Dictionary/:search',
-        name: 'Dictionary',
-        component: () => import('../views/Dictionary.vue'),
-    },
-    {
-        path: '/browse/',
-        name: 'Browse',
-        component: () => import('../views/Browse.vue'),
-    },
-    {
-        path:'/Contact',
-        name: 'Contact',
-        component: () => import('../views/Contact.vue'),
-    },
-    {
-        path:'/SignUp',
-        name: 'SignUp',
-        component: () => import('../views/SignUp.vue')
-    },
-    {
-        path:'/Login',
-        name: 'Login',
-        component: () => import('../views/Login.vue')
-    },
-    {
-      path: "/Profile",
-      name: "Profile",
-      component: () => import("../views/Profile.vue"),
-    },
-]
+  {
+    path: "/",
+    name: "Home",
+    component: () => import("../views/Home.vue"),
+  },
+  {
+    path: "/dictionary/:search",
+    name: "Dictionary",
+    component: () => import("../views/Dictionary.vue"),
+  },
+  {
+    path: "/browse/",
+    name: "Browse",
+    component: () => import("../views/Browse.vue"),
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () => import("../views/Contact.vue"),
+  },
+  {
+    path: "/signUp",
+    name: "SignUp",
+    component: () => import("../views/SignUp.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes 
-  })
+  routes,
+});
 
-  router.beforeEach((to, from, next) => {
-    const token = sessionStorage.getItem("token");
-    if (to.matched.some((route) => route.meta.requiresAuth && !token)) {
-      next({ name: "Login" });
-    } else {
-      next();
-    }
-  });
-  
-export default router
+export default router;
