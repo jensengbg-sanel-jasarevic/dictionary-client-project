@@ -1,7 +1,7 @@
 <template>
   <section class="dicSec">
     <form class="search-word-form" @submit.prevent="getWord">
-      <h1 id="heading-search-word-form"><b>IT</b> Dictionary</h1>
+      <h1 id="heading-search-word-form">IT Dictionary</h1>
       <p>
         The Online IT Dictionary for Students, Educators and IT Professionals
       </p>
