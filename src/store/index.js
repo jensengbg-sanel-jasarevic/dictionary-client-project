@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com",
+    API_URL: "http://localhost:5000",
     wordsByLetter: null,
     word: null,
     wordInfo: null,

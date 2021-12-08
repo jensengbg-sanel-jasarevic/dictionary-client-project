@@ -11,7 +11,6 @@
       class="primaryButton"
       tabindex="0"
       type="submit"
-      @click="handleSubmit"
     >
       <span class="buttonLabel">Login</span>
     </button>
