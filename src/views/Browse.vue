@@ -129,6 +129,7 @@ export default {
           word: this.word,
           information: this.wordDescription,
           author: name,
+          role: this.user.role
         };
         // Call the backend to create the new word
         this.$store.dispatch("createWordInfo", payload);

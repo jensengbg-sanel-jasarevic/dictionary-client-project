@@ -196,7 +196,7 @@ export default {
       }
     },
     checkAdminCode() {
-      if (this.adminCode === "admin") {
+      if (this.adminCode === process.env.VUE_APP_ADMIN_CODE) {
         this.isAdminUser = true;
         this.closeAdmin();
       } else {

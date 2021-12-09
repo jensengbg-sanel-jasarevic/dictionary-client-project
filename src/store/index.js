@@ -77,29 +77,12 @@ export default new Vuex.Store({
     },
     async createWordInfo(ctx, payload) {
       ctx.commit("setErrorMsg", "");
-      await axios
-        .post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) {
-            ctx.commit("setErrorMsg", data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
-
+      await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+        headers: {
+          'authorization': `Bearer ${ctx.state.userService.token}` 
+        }
+      }); 
+   },
     async deleteWord(ctx, payload) {
       ctx.commit("setErrorMsg", "");
       await axios
@@ -116,7 +99,6 @@ export default new Vuex.Store({
           }
         })
         .catch((err) => {
-          console.log(err);
           if (err.response.status == 401) {
             ctx.commit("setErrorMsg", "User is unautorized");
           } else {

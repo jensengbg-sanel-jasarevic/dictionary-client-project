@@ -30,7 +30,7 @@
           >
           <router-link to="/profile" v-if="user.email != null"
             ><div class="menu">
-              <i class="fas fa-user"></i>Profile
+              <i class="fas fa-user"></i> Profile
             </div></router-link
           >
         </div>
