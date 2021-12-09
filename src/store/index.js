@@ -54,27 +54,12 @@ export default new Vuex.Store({
       ctx.commit("setWordsByLetter", wordsByLetter);
     },
     async putWordInfo(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
-      await axios
-        .put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) ctx.commit("setErrorMsg", data.message);
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
+      await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+        headers: {
+          'authorization': `Bearer ${ctx.state.userService.token}` 
+        }
+      }); 
+   },
     async createWordInfo(ctx, payload) {
       ctx.commit("setErrorMsg", "");
       await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
@@ -115,11 +100,12 @@ export default new Vuex.Store({
     async postComment(ctx, payload) {
       await axios.post(`${ctx.state.API_URL}/api/comments`, payload);
     },
-    async deleteComment(ctx, commentID) {
+    async deleteComment(ctx, payload) {
       await axios.delete(`${ctx.state.API_URL}/api/comments`, {
-        data: { id: commentID },
-      });
-    },
+      data: payload, 
+      headers: {'authorization': `Bearer ${ctx.state.userService.token}`} 
+      });      
+    },   
     async patchVote(ctx, commentID) {
       await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
     },

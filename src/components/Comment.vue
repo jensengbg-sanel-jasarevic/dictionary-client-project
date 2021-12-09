@@ -49,11 +49,11 @@ export default {
   },
   methods: {
     putWordInfo() {
-      this.$store.dispatch("putWordInfo", this.comment);
+      this.$store.dispatch("putWordInfo", {payload: this.comment, role: this.user.role});
       this.$emit("approvedComment", this.comment.word);
     },
     deleteComment() {
-      this.$store.dispatch("deleteComment", this.comment.id);
+      this.$store.dispatch("deleteComment", {id: this.comment.id, role: this.user.role});
       this.$emit("deletedComment", this.comment.word);
     },
     patchVote() {
