@@ -36,6 +36,7 @@ export default {
 
 .left {
   grid-area: left;
+  margin-top: 50%;
 }
 
 .right {
@@ -58,13 +59,15 @@ export default {
   display: flex;
   flex-direction: column;
 }
-h1 {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-p {
-  font-size: 0.8em;
-}
-
+  .left {
+    margin-top: unset;
+  }
+  h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  p {
+    font-size: 0.8em;
+  }
 }
 </style>

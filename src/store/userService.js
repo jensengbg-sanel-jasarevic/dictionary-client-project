@@ -50,15 +50,20 @@ export default {
       }
     },
     async logout(ctx, userDetails) {
-      await axios.patch(`${ctx.state.API_URL}/auth`, { user: userDetails.email })
+      await axios.patch(`${ctx.state.API_URL}/auth`, { user: userDetails.email }, {
+        headers: { 'authorization': `Bearer ${ctx.state.token}` }
+      }); 
       ctx.commit('loggedOut')
     },
     async deleteUser(ctx, userDetails) {
       ctx.commit("registerError", "");
       try {
-        await axios.delete(`${ctx.state.API_URL}/accounts`, { data: {email: userDetails.email} });
+        await axios.delete(`${ctx.state.API_URL}/accounts`, { 
+        data: {email: userDetails.email},
+        headers: {'authorization': `Bearer ${ctx.state.token}`} 
+      });
         ctx.commit('loggedOut')
-      } catch {
+      } catch (err){
         const errorMsg = "Request could not be fulfilled"
         ctx.commit("registerError", errorMsg);
       }
@@ -66,7 +71,9 @@ export default {
     async updatePassword(ctx, data) {
       ctx.commit("registerError", "");
       try {
-        await axios.patch(`${ctx.state.API_URL}/accounts`, { data });
+        await axios.patch(`${ctx.state.API_URL}/accounts`, data, {
+          headers: { 'authorization': `Bearer ${ctx.state.token}` }
+        }); 
       } catch {
         const errorMsg = "Request could not be fulfilled"
         ctx.commit("registerError", errorMsg);      

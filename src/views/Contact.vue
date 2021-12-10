@@ -16,14 +16,17 @@
       website. This will allow you the opportunity to contribute in creating the
       websites content more qualitative by helping in defining or explaining
       words in a more clearly way. This is achieved by simply leaving a comment
-      on a word in which you suggest a clearer definition or explanation. Your
-      comment enables site visitors to vote for it, if they think yours
-      alternative definition in the comment has been put forward in a more clear
-      manner. Comment with many votes is a evident indication that the
-      definition is well-liked by visitors, this could produce editors of the
-      site to approve it which will modify the sites primary definition of a
-      word to yours proposal.
+      on a word in which you suggest a clearer definition or explanation.
     </p>
+    <p>
+      Your
+      comment enables site visitors to vote for it, if they believe the
+      alternative definition in the comment is put forward in a more clear
+      manner. Comment with many votes is a evident indication that the
+      definition is well-liked by visitors, this could produce in editors of the
+      site to approve it. In this case the sites primary definition of a
+      word will be modified to yours proposal.
+      </p>
     <h1>Contact Us</h1>
     <p>
       Here you will find contact information for our office. The below contacts

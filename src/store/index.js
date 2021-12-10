@@ -32,85 +32,55 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getWord(ctx, word) {
-      let response = await axios.get(
-        `${ctx.state.API_URL}/api/dictionary/${word}`
-      );
-      let responseData = {
-        word: response.data[0].word,
-        information: response.data[0].information,
-        author: response.data[0].author,
-      };
-      ctx.commit("setWord", responseData);
-    },
-    async getWordsByLetter(ctx, letter) {
-      let response = await axios.get(
-        `${ctx.state.API_URL}/api/dictionary/words/${letter}`
-      );
-      let wordsByLetter = new Array();
-      response.data.forEach((item) => {
-        wordsByLetter.push(item.word);
-      });
-      ctx.commit("setWordsByLetter", wordsByLetter);
-    },
-    async putWordInfo(ctx, payload) {
-      await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-        headers: {
-          'authorization': `Bearer ${ctx.state.userService.token}` 
-        }
-      }); 
-   },
     async createWordInfo(ctx, payload) {
       ctx.commit("setErrorMsg", "");
       await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-        headers: {
-          'authorization': `Bearer ${ctx.state.userService.token}` 
-        }
+        headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
       }); 
-   },
-    async deleteWord(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
-      await axios
-        .delete(`${ctx.state.API_URL}/api/dictionary`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) {
-            ctx.commit("setErrorMsg", data.message);
-          }
-        })
-        .catch((err) => {
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
-
-    async getComments(ctx, payload) {
-      let resp = await axios.get(`${ctx.state.API_URL}/api/comments`);
-      let wordComments = resp.data.filter((item) => item.word === payload);
-      ctx.commit("setWordComments", wordComments.reverse());
-    },
-    async postComment(ctx, payload) {
-      await axios.post(`${ctx.state.API_URL}/api/comments`, payload);
-    },
-    async deleteComment(ctx, payload) {
-      await axios.delete(`${ctx.state.API_URL}/api/comments`, {
+   }, 
+   async getWord(ctx, word) {
+    let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/${word}`);
+    let responseData = {
+      word: response.data[0].word,
+      information: response.data[0].information,
+      author: response.data[0].author,
+    };
+    ctx.commit("setWord", responseData);
+  },
+  async getWordsByLetter(ctx, letter) {
+    let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/words/${letter}`);
+    let wordsByLetter = new Array();
+    response.data.forEach((item) => {
+      wordsByLetter.push(item.word);
+    });
+    ctx.commit("setWordsByLetter", wordsByLetter);
+  },      
+  async putWordInfo(ctx, payload) {
+    await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+      headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+    }); 
+  },  
+  async postComment(ctx, payload) {
+    await axios.post(`${ctx.state.API_URL}/api/comments`, payload, {
+      headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+    }); 
+  },   
+  async getComments(ctx, payload) {
+    let resp = await axios.get(`${ctx.state.API_URL}/api/comments`);
+    let wordComments = resp.data.filter((item) => item.word === payload);
+    ctx.commit("setWordComments", wordComments.reverse());
+  },
+  async patchVote(ctx, commentID) {
+    await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
+  },  
+  async deleteComment(ctx, payload) {
+    await axios.delete(`${ctx.state.API_URL}/api/comments`, {
       data: payload, 
       headers: {'authorization': `Bearer ${ctx.state.userService.token}`} 
-      });      
-    },   
-    async patchVote(ctx, commentID) {
-      await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
-    },
-  },
+    });      
+  }   
+},
   modules: {
-    userService,
+    userService
   },
 });
