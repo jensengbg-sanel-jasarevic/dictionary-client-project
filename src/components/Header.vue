@@ -23,9 +23,9 @@
               <i class="fas fa-book-open"></i> Browse A-Z
               </div></router-link
           >
-          <router-link to="/contact"
+          <router-link to="/about"
             ><div class="menu">
-              <i class="fas fa-comment"></i> Contact
+              <i class="fas fa-comment"></i> About &amp; Contacts
             </div></router-link
           >
           <router-link to="/profile" v-if="user.email != null"
@@ -61,7 +61,7 @@
             @click="goTo('signUp')"
             v-if="user.email == null"
           >
-            <span class="buttonLabel">Sign Up</span>
+            <span class="buttonLabel">Sign up</span>
           </button>
         </div>
       </div>
@@ -157,11 +157,8 @@ header {
   flex-shrink: 0;
   flex-direction: column;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
-    linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
-    linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
-    linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222d;
-  background-size: 20px 20px;
+  background-color: #1d2a57;
+  border-bottom:30px solid #fff;
 }
 .headerDiv {
   display: flex;
@@ -195,11 +192,11 @@ header {
   display: block;
 }
 .nav a.router-link-exact-active {
-  color: rgb(250, 242, 185);
+  color: #ec4b43;
   text-decoration: none;
 }
 .nav a:hover {
-  color: rgb(158, 151, 100);
+  color: #25D366;
   text-decoration: none;
 }
 .icon {

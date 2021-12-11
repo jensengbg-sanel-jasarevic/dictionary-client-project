@@ -1,4 +1,4 @@
-## Frontend - Online Dictionary
+## Frontend - Web Dictionary
 Client software.
 
 ### Web address URL

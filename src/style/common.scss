@@ -11,9 +11,8 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   line-height: 1.75;
-  border-radius: 4px;
+  border-radius: 30px;
   letter-spacing: 0.02857em;
-  text-transform: uppercase;
   border: 0;
   margin: 0;
   display: inline-flex;
@@ -32,18 +31,20 @@
   background-color: #a4a5a4;
 }
 .primaryButton {
-  background-color: #226e4f;
+  background-color: #0F9D58;
+  cursor: pointer;
 }
 .primaryButton:hover:enabled {
-  background-color: #29b97d;
+  background-color: #25D366;
 }
 
 .secondaryButton {
-  background-color: #303533;
+  background-color: #a4a5a4;
+  cursor: pointer;
 }
 
 .secondaryButton:hover:enabled {
-  background-color: #505251;
+  background-color: #555555;
 }
 
 .buttonLabel {

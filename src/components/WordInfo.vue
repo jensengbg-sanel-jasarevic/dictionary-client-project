@@ -3,12 +3,16 @@
     <h1>
       Search: <span>{{ word }}</span>
     </h1>
-    <p id="word-updated">{{ updatedWordNotification }}</p>
-    <p class="author">
-      <img src="@/assets/iconpacks-person.svg" alt="Author" />
-      {{ wordAuthor }}
-    </p>
-    <p>{{ wordInfo }}</p>
+    <div class="outer">
+      <div class="inner">    
+        <p id="word-updated">{{ updatedWordNotification }}</p>
+        <p class="author">
+        <img src="@/assets/iconpacks-person.svg" alt="Author" />
+        {{ wordAuthor }}
+        </p>
+        <p id="word-definition">{{ wordInfo }}</p>
+      </div>
+    </div>
     <h4 id="header-comments">Comments ({{ wordCommentsTotal }})</h4>
     <Comment
       @votedComment="updateCommentVotes"
@@ -149,6 +153,27 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
+h1 {
+  font-weight: unset;
+}
+.outer{
+  background-color: #22558A;
+  padding:35px;
+  border-radius: 10px;
+}
+.inner{
+  background-color: #fff;
+  color: #000000;
+  font-family: 'Poppins', Arial, Verdana;
+  border-radius: 20px;
+  padding: 15px;
+  word-wrap: break-word;
+}
+#word-definition{
+  font-size: 1.2em;
+  font-weight: unset;
+  color: #5e5e5e;
+}
 span {
   color: #ec4b43;
 }
@@ -171,10 +196,11 @@ span {
   margin-top: 3%;
 }
 .comment-word-form > input[type="submit"] {
-  background-color: #ec4b43;
+  background-color: #ffb000;
   color: white;
   border: none;
-  padding: 16px 32px;
+  border-radius: 30px;
+  padding: 16px 42px;
   text-decoration: none;
   cursor: pointer;
   margin: 0 auto;

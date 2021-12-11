@@ -6,7 +6,10 @@
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous"
     />
+    <div id="main-header">
     <Header></Header>
+    <h1 id="header-title">IT Dictionary</h1>
+    </div>
     <vue-confirm-dialog class="confirmBtn"></vue-confirm-dialog>
     <router-view class="routerView" />
     <Footer></Footer>
@@ -20,7 +23,7 @@ export default {
   name: "App",
   components: {
     Header,
-    Footer,
+    Footer
   },
 };
 </script>
@@ -35,7 +38,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #030303;
+}
+#main-header {
+  background-color: #ffb000;
+}
+#header-title {
+  font-size: 3em;
+  font-weight: unset;
+  color: #1f1671;
+  padding-bottom: 2%; 
 }
 .routerView {
   width: 100%;

@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <p v-if="showRegister === true" class="register-user">
-      New User is Registered!
+      New user registered!
     </p>
     <h3>Register</h3>
     <label>Firstname</label>
@@ -10,10 +10,10 @@
     <input type="Text" v-model="lastname" required />
     <label>Email</label>
     <input type="email" v-model="email" required />
-    <label>Password :</label>
+    <label>Password</label>
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
     <input type="password" v-model="password" required />
-    <label>Role :</label>
+    <label>Role</label>
     <select v-model="role" @change="openAdminCode">
       <option value="admin">Admin</option>
       <option value="user">User</option>
@@ -38,7 +38,7 @@
     <div>
       <input type="checkbox" v-model="terms" required />
       <label
-        >I accept to all
+        >I accept to the
         <a href="javascript:void(0)" v-on:click="openTerms" id="termsPopup">
           Terms and Conditions</a
         ></label
@@ -50,24 +50,21 @@
       @close="closeTerms"
       @cancel="declineTerms"
     >
-      <template v-slot:header> Terms and Condition </template>
+      <template v-slot:header> Terms and Conditions </template>
 
       <template v-slot:body>
-        Legitimate interest. Visit Sweden’s legitimate interest in processing of
-        personal data is to be able to offer you/your organisation better
-        services and also to provide you with relevant information about the
-        services. We may use data about you to provide newsletters and also news
-        information and marketing related to our services, both general and
-        customer-specific, inform you about campaigns, special offers and other
-        information about our activities or services that we offer ourselves or
-        through our cooperating partners and that we think may be of interest to
-        you or your organisation. We may thus later use the data about you for
-        direct marketing, unless you/your organisation have instructed us not to
-        do this. However, if you are a private individual we will only use your
-        data for electronic direct marketing if you have consented to us doing
-        so. You have an opportunity at any time to object to us using your
-        personal data for marketing purposes by contacting us directly in our
-        electronic mailing.
+        These terms and conditions have been generated with the help of the terms and conditions sample generator.
+        These standard terms and conditions written on this webpage shall manage your use of our website.
+        These terms will be applied fully and affect to your use of this Website. By using this website, you agreed
+        to accept all terms and conditions written in here. You must not use this website if you disagree with any of
+        these website standard terms and conditions. We are permitted to revise these terms at any time as it sees fit,
+        and by using this website you are expected to review these terms on a regular basis The site is allowed to assign,
+        transfer, and subcontract its rights and/or obligations under these terms without any notification. However, you are
+        not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these terms. These terms
+        constitute the entire agreement between the website and you in relation to your use of this website, and supersede all
+        prior agreements and understandings. These terms will be governed by and interpreted in accordance with the laws of the
+        state of se, and you submit to the non-exclusive jurisdiction of the state and federal courts located in se for the resolution
+        of any disputes.
       </template>
       <template v-slot:okText> Accept </template>
       <template v-slot:cancelText> Decline </template>
@@ -129,8 +126,8 @@ export default {
         lastname: this.lastname,
         email: this.email,
         password: this.password,
-        terms: new Date().toLocaleString(),
         role: this.role,
+        terms: new Date().toLocaleString()
       };
       this.$store
         .dispatch("registerUser", userDetails)
@@ -203,7 +200,7 @@ export default {
         this.isAdminUser = false;
         this.$confirm({
           auth: false,
-          message: "Invalid Admin Code",
+          message: "Invalid admin code",
           button: {
             no: "Ok",
           },
@@ -231,7 +228,6 @@ label {
   color: rgb(73, 72, 72);
   display: inline-block;
   margin: 15px 0 10px;
-  text-transform: uppercase;
 }
 input,
 select {
@@ -260,7 +256,7 @@ h3 {
 .register-user {
   font-size: 24px;
   font-weight: 500;
-  color: rgb(26, 114, 80);
+  color: #25D366;
 }
 .popup-input {
   display: block;
@@ -269,21 +265,12 @@ h3 {
   border: 1px solid #ddd;
   color: #555;
 }
-@media screen and (max-width: 600px) {
-  form {
-    max-width: 500px;
-    margin: 5px auto;
-    background: #fff;
-    text-align: left;
-    border-radius: 5px;
-    min-height: 75vh;
-  }
+@media screen and (max-width: 800px) {
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
     margin: 5px 0 10px;
     font-size: 0.8em;
-    text-transform: uppercase;
   }
   input,
   select {
@@ -312,7 +299,7 @@ h3 {
   .register-user {
     font-size: 1.25rem;
     font-weight: bold;
-    color: rgb(26, 114, 80);
+    color: #25D366;
   }
 }
 </style>

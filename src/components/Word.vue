@@ -31,4 +31,9 @@ p {
   cursor: pointer;
   border-radius: 10px;
 }
+@media (max-width: 800px) {
+p{
+  padding: 4%;
+}
+}
 </style>

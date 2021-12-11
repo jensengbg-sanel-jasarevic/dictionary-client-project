@@ -3,7 +3,7 @@
     <h3>Login</h3>
     <label>Email</label>
     <input type="email" v-model="email" required />
-    <label>Password :</label>
+    <label>Password</label>
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
     <input type="password" v-model="password" />
     <br />
@@ -86,7 +86,6 @@ label {
   color: rgb(73, 72, 72);
   display: inline-block;
   margin: 15px 0 10px;
-  text-transform: uppercase;
 }
 input {
   display: block;
@@ -118,20 +117,11 @@ h3 {
   margin-top: 0;
 }
 @media screen and (max-width: 600px) {
-  form {
-    max-width: 500px;
-    margin: 5px auto;
-    background: #fff;
-    text-align: left;
-    border-radius: 5px;
-    min-height: 62vh;
-  }
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
     margin: 5px 0 10px;
     font-size: 0.8em;
-    text-transform: uppercase;
   }
   input {
     display: block;

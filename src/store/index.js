@@ -32,7 +32,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async createWordInfo(ctx, payload) {
+    async createWord(ctx, payload) {
       ctx.commit("setErrorMsg", "");
       await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
         headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
