@@ -8,13 +8,13 @@
         <div class="info-box-left">
           <h1 class="info-header">What we provide</h1>
           <p>
-            We supply a free online dictionary website with words and terms from the
-            IT field.
+            We supply a free online dictionary website with words and terms from the field
+            of information technology, IT.
           </p>
           <h1 class="info-header">Our motive</h1>
           <p>
             The goal is simple — we want to make IT terminology easy to understand.
-            Instead of using high-level terminology, definitions are strived to be
+            Instead of using high-level terminology, definitions are aimed to be
             written in simple everyday language. We strive for simplicity and accuracy
             with every definition we publish.
           </p>
@@ -23,19 +23,18 @@
         <div class="info-box-middle">
           <h1 class="info-header">Support us &amp; get credit</h1>
           <p>
-            If you have feedback about some definition, please register on the
-            website. This will allow you the opportunity to contribute in creating the
+            If you have feedback about some word definition, please register on the
+            website. This will allow you a opportunity to participate and contribute in creating the
             websites content more qualitative by helping in defining or explaining
-            words in a more clearly way. This is achieved by simply leaving a comment
+            words in a more clearly way. You will achieve this by simply leaving a comment
             on a word in which you suggest a clearer definition or explanation.
           </p>
           <p>
-            Your
-            comment enables site visitors to vote for it, if they believe the
+            Your comment enables site visitors to vote for it, if they believe the
             alternative definition in the comment is put forward in a more clear
-            manner. Comment with many votes is a evident indication that the
-            definition is well-liked by visitors, this could produce in editors of the
-            site to approve it. In this case the sites primary definition of a
+            manner. Having a lot of votes is an evident indication that the
+            definition is well-liked by visitors, odds are that site editors decide to
+            approve it. In this case the primary definition of a
             word will be modified to yours proposal.
             </p>
         </div>

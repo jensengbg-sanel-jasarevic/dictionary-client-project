@@ -219,7 +219,7 @@ label {
   margin: 15px 0 10px;
   text-transform: uppercase;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .navDiv .nav {
     display: none;
   }
@@ -231,14 +231,14 @@ label {
     display: block;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .navDiv.navDiv.responsive {
     top: 0;
     margin-top: 50px;
     right: 0;
     height: 80%;
     position: fixed;
-    width: 25%;
+    width: 35%;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

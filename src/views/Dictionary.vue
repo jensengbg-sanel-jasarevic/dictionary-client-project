@@ -23,7 +23,7 @@ export default {
   name: "Dictionary",
 
   components: {
-    WordInfo,
+    WordInfo
   },
 
   data() {

@@ -1,17 +1,14 @@
 <template>
   <div class="comment-component-wrapper">
-    <p class="smaller-font" id="comment-author">
-      <img src="@/assets/iconpacks-person.svg" alt="Author" />
-      {{ comment.author }}
-      <img
-        @click="putWordInfo"
+     <img
+        @click="putWordDefinition"
         class="approve-disapprove-icon"
         src="@/assets/iconpacks-approve.svg"
         alt="Approve"
         width="35"
         height="35"
         v-if="user && user.role == 'admin'"
-      />
+      /> 
       <img
         @click="deleteComment"
         class="approve-disapprove-icon"
@@ -21,18 +18,20 @@
         height="35"
         v-if="user && user.role == 'admin'"
       />
+    <p id="comment-author">
+      <img src="@/assets/iconpacks-person.svg" alt="Author" />
+      <span>{{ comment.author }}</span>
     </p>
-
     <p id="comment-text">{{ comment.comment }}</p>
     <p id="comment-created">{{ comment.created_at }}</p>
-    <p class="smaller-font" :id="`comment-votes-${comment.id}`">
+    <p class="votes-counter" :id="`comment-votes-${comment.id}`">
       <img
-        @click="patchVote"
+        @click="patchCommentVote"
         id="vote"
         src="@/assets/iconpacks-vote.svg"
         alt="Vote"
       />
-      {{ comment.votes }}
+      <span>{{ comment.votes }} votes</span>
     </p>
   </div>
 </template>
@@ -40,24 +39,24 @@
 export default {
   name: "Comment",
   props: {
-    comment: Object,
+    comment: Object
   },
   computed: {
     user() {
       return this.$store.state.userService.user;
-    },
+    }
   },
   methods: {
-    putWordInfo() {
-      this.$store.dispatch("putWordInfo", {payload: this.comment, role: this.user.role});
-      this.$emit("approvedComment", this.comment.word);
+    putWordDefinition() {
+      this.$store.dispatch("putWordDefinition", {updateDefinition: this.comment, role: this.user.role});
+      this.$emit("approvedComment", this.comment);
     },
     deleteComment() {
       this.$store.dispatch("deleteComment", {id: this.comment.id, role: this.user.role});
       this.$emit("deletedComment", this.comment.word);
     },
-    patchVote() {
-      this.$store.dispatch("patchVote", this.comment.id);
+    patchCommentVote() {
+      this.$store.dispatch("patchCommentVote", this.comment.id);
       this.$emit("votedComment", {
         id: this.comment.id,
         word: this.comment.word,
@@ -69,7 +68,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .comment-component-wrapper {
-  max-width: 60%;
+  word-wrap: break-word;
+  max-width: 50vw;
   border-radius: 15px;
   border-style: solid;
   border-color: #1f1671;
@@ -89,6 +89,7 @@ p {
   cursor: pointer;
 }
 #comment-author {
+  font-size: 0.9em;
   color: #6eb1e1;
   font-weight: bold;
 }
@@ -97,18 +98,34 @@ p {
   font-size: 0.8em;
 }
 #comment-text {
+  white-space: pre-wrap; 
   background: #e9ebee;
   border-radius: 20px;
   padding: 15px;
 }
-.smaller-font {
-  font-size: 0.9em;
+#comment-author, #votes-counter {
+  display: flex;
+  flex-wrap: wrap;
 }
-.smaller-font > img {
+span {
+  word-break: break-word;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+img {
   width: 1.8em;
   height: 1.8em;
+  margin-right: 3px; 
 }
 #vote {
   cursor: pointer;
+}
+.votes-counter{
+  font-size: 1.1em;
+  color: #5e5e5e;
+}
+.votes-counter > span{
+  position:relative;
+  top:-5px;
 }
 </style>

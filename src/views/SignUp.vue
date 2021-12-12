@@ -25,10 +25,10 @@
       @close="closeAdmin"
       @cancel="closeAdmin"
     >
-      <template v-slot:header> Please enter the admin code </template>
+      <template v-slot:header>Please enter the admin code </template>
 
       <template v-slot:body>
-        <input class="popup-input" type="password" v-model="adminCode" />
+        <input id="popup-input" type="password" v-model="adminCode" />
       </template>
       <template v-slot:okText> Ok </template>
       <template v-slot:cancelText> Cancel </template>
@@ -258,7 +258,7 @@ h3 {
   font-weight: 500;
   color: #25D366;
 }
-.popup-input {
+#popup-input {
   display: block;
   width: 60%;
   box-sizing: border-box;

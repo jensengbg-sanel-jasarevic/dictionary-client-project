@@ -34,7 +34,7 @@
       <li>Y</li>
       <li>Z</li>
     </ul>
-    <div v-if="clickedLetter">
+    <div class="clicked-letter-container" v-if="clickedLetter">
       <h1>
         Index: <span id="clicked-letter">{{ clickedLetter }}</span>
       </h1>
@@ -70,6 +70,8 @@ export default {
       } else {
         this.clickedLetter = letter.toUpperCase();
         this.$store.dispatch("getWordsByLetter", letter);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
     }
   },
@@ -120,6 +122,10 @@ li {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2%;
+  }
+  .browseSec{
+    display: flex;
+    flex-direction: column-reverse;
   }
 }
 </style>

@@ -21,7 +21,7 @@
         <label for="word">Word</label>
         <input v-model="word" class="create-word-input" type="text" placeholder="Write a word to be added"/>
         <label for="information">Definition</label>
-        <textarea v-model="wordInfo" class="create-word-input" rows="10" placeholder="Write a definition for the word" />
+        <textarea v-model="wordDefinition" class="create-word-input" rows="10" placeholder="Write a definition for the word" />
         <input id="submit-word" type="submit" value="Post"/>
       </form>
     </div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       word: null,
-      wordInfo: null
+      wordDefinition: null
     }
   },
 
@@ -52,7 +52,7 @@ export default {
     createWord() {
         const payload = {
           word: this.word,
-          info: this.wordInfo,
+          definition: this.wordDefinition,
           author: `${this.user.firstname} ${this.user.lastname}`,
           role: this.user.role
         }

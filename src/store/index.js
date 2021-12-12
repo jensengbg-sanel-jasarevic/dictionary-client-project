@@ -10,30 +10,25 @@ export default new Vuex.Store({
     API_URL: "http://localhost:5000",
     wordsByLetter: null,
     word: null,
-    wordInfo: null,
-    wordAuthor: null,
-    wordComments: null,
-    errorMsg: "",
+    definition: null,
+    author: null,
+    comments: null
   },
   mutations: {
     setWord(state, responseData) {
       state.word = responseData.word;
-      state.wordInfo = responseData.information;
-      state.wordAuthor = responseData.author;
+      state.definition = responseData.definition;
+      state.author = responseData.author;
+    },
+    setComments(state, comments) {
+      state.comments = comments;
     },
     setWordsByLetter(state, wordsByLetter) {
       state.wordsByLetter = wordsByLetter;
-    },
-    setWordComments(state, wordComments) {
-      state.wordComments = wordComments;
-    },
-    setErrorMsg(state, error) {
-      state.errorMsg = error;
-    },
+    }    
   },
   actions: {
     async createWord(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
       await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
         headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
       }); 
@@ -42,8 +37,8 @@ export default new Vuex.Store({
     let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/${word}`);
     let responseData = {
       word: response.data[0].word,
-      information: response.data[0].information,
-      author: response.data[0].author,
+      definition: response.data[0].definition,
+      author: response.data[0].author
     };
     ctx.commit("setWord", responseData);
   },
@@ -55,11 +50,11 @@ export default new Vuex.Store({
     });
     ctx.commit("setWordsByLetter", wordsByLetter);
   },      
-  async putWordInfo(ctx, payload) {
-    await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+  async putWordDefinition(ctx, payload) {
+    await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.updateDefinition.word}`, payload, {
       headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
     }); 
-  },  
+  },   
   async postComment(ctx, payload) {
     await axios.post(`${ctx.state.API_URL}/api/comments`, payload, {
       headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
@@ -67,10 +62,10 @@ export default new Vuex.Store({
   },   
   async getComments(ctx, payload) {
     let resp = await axios.get(`${ctx.state.API_URL}/api/comments`);
-    let wordComments = resp.data.filter((item) => item.word === payload);
-    ctx.commit("setWordComments", wordComments.reverse());
+    let comments = resp.data.filter((item) => item.word === payload);
+    ctx.commit("setComments", comments.reverse());
   },
-  async patchVote(ctx, commentID) {
+  async patchCommentVote(ctx, commentID) {
     await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
   },  
   async deleteComment(ctx, payload) {
