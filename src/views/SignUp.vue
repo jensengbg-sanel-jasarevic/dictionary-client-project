@@ -13,6 +13,8 @@
     <label>Password</label>
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
     <input type="password" v-model="password" required />
+    <label>Secret key</label>
+    <input type="text" v-model="secretKey" required />
     <label>Role</label>
     <select v-model="role" @change="openAdminCode">
       <option value="admin">Admin</option>
@@ -87,6 +89,7 @@ export default {
       lastname: "",
       email: "",
       password: "",
+      secretKey: "",
       terms: false,
       isTermsVisible: false,
       passwordError: "",
@@ -126,6 +129,7 @@ export default {
         lastname: this.lastname,
         email: this.email,
         password: this.password,
+        secretKey: this.secretKey,
         role: this.role,
         terms: new Date().toLocaleString()
       };

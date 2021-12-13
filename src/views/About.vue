@@ -58,26 +58,13 @@
         </div>
       </div>
     </div>
-
-      <button
-        class="primaryButton"
-        tabindex="0"
-        type="submit"
-        @click="openContact"
-        v-show="!isContactFormVisible"><span class="buttonLabel">Click here to send your query</span></button>
-      <ContactForm v-show="isContactFormVisible" @close="closeContact" />
-      <br>
-
   </section>
 </template>
 
 <script>
-import ContactForm from "../components/ContactForm.vue";
 export default {
   name: "Contact",
-  components: {
-    ContactForm
-  },
+
   beforeMount(){
   this.$store.dispatch('clearStateValues')
   },

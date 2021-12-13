@@ -2,16 +2,14 @@ import axios from "axios";
 
 export default {
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com/api",
+    API_URL: "http://localhost:5000/api",
     token: "",
     user: [],
     error: "",
+    passwordUpdatedMsg: "",
     active: false
   },
   mutations: {
-    registerError(state, error) {
-      state.error = error;
-    },
     loggedIn(state, authorizedUser){
       state.error = "";
       state.token = authorizedUser.token
@@ -22,9 +20,19 @@ export default {
       state.token = ""
       state.user = []
       state.active = false
+    },
+    registerError(state, error) {
+      state.error = error;
+    },
+    registerPasswordUpdatedMsg(state, message) {
+      state.passwordUpdatedMsg = message
     }     
   },
   actions: {
+    async clearStateValues(ctx) {
+      ctx.commit("registerError", "");
+      ctx.commit("registerPasswordUpdatedMsg", "");
+    },
     async registerUser(ctx, userDetails){
       ctx.commit("registerError", "");
       try {
@@ -68,14 +76,15 @@ export default {
         ctx.commit("registerError", errorMsg);
       }
     },
-    async updatePassword(ctx, data) {
+    async updatePassword(ctx, payload) {
       ctx.commit("registerError", "");
+      ctx.commit("registerPasswordUpdatedMsg", "");
       try {
-        await axios.patch(`${ctx.state.API_URL}/accounts`, data, {
-          headers: { 'authorization': `Bearer ${ctx.state.token}` }
-        }); 
+        await axios.patch(`${ctx.state.API_URL}/accounts`, payload); 
+        const passwordUpdatedMsg = "Password successfully updated"
+        ctx.commit("registerPasswordUpdatedMsg", passwordUpdatedMsg );      
       } catch {
-        const errorMsg = "Request could not be fulfilled"
+        const errorMsg = "Credentials provided are not valid"
         ctx.commit("registerError", errorMsg);      
       }
     }
