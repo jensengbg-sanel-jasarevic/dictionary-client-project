@@ -22,6 +22,8 @@ export default new Vuex.Store({
     getWordErrorMsg: null,
     createWordSuccessMsg: null,
     createWordErrorMsg: null,
+    updateWordSuccessMsg: null,
+    updateWordErrorMsg: null,
     deleteWordSuccessMsg: null,
     deleteWordErrorMsg: null
   },
@@ -45,7 +47,13 @@ export default new Vuex.Store({
     },
     registerCreateWordError(state, errorMsg){
       state.createWordErrorMsg = errorMsg
-    },   
+    },
+    registerUpdateWordSuccess(state, successMsg){
+      state.updateWordSuccessMsg = successMsg
+    },
+    registerUpdateWordError(state, errorMsg){
+      state.updateWordErrorMsg = errorMsg
+    },      
     registerDeleteWordSuccess(state, successMsg){
       state.deleteWordSuccessMsg = successMsg
     },
@@ -67,7 +75,11 @@ export default new Vuex.Store({
     },
     async createWord(ctx, payload) {
       ctx.commit("registerCreateWordError", null); 
-      ctx.commit("registerCreateWordSuccess", null); 
+      ctx.commit("registerCreateWordSuccess", null);
+      ctx.commit("registerUpdateWordError", null); 
+      ctx.commit("registerUpdateWordSuccess", null);
+      ctx.commit("registerDeleteWordError", null); 
+      ctx.commit("registerDeleteWordSuccess", null);   
       try {
       await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
         headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
@@ -107,13 +119,26 @@ export default new Vuex.Store({
     ctx.commit("setWordsByLetter", wordsByLetter);
   },      
   async putWordDefinition(ctx, payload) {
-    await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.updateDefinition.word}`, payload, {
-      headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
-    }); 
+    ctx.commit("registerCreateWordError", null); 
+    ctx.commit("registerCreateWordSuccess", null); 
+    ctx.commit("registerUpdateWordError", null); 
+    ctx.commit("registerUpdateWordSuccess", null); 
+    ctx.commit("registerDeleteWordError", null); 
+    ctx.commit("registerDeleteWordSuccess", null); 
+    try {
+      await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+        headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+      }); 
+      ctx.commit("registerUpdateWordSuccess", "Word has been updated in the dictionary");      
+    } catch(err) {
+      ctx.commit("registerUpdateWordError", "This word is not in the dictionary");      
+    }
   },
   async deleteWord(ctx, payload) {
     ctx.commit("registerCreateWordError", null); 
-    ctx.commit("registerCreateWordSuccess", null); 
+    ctx.commit("registerCreateWordSuccess", null);
+    ctx.commit("registerUpdateWordError", null); 
+    ctx.commit("registerUpdateWordSuccess", null); 
     ctx.commit("registerDeleteWordError", null); 
     ctx.commit("registerDeleteWordSuccess", null); 
     try {

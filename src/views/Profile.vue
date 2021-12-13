@@ -1,7 +1,9 @@
 <template>
   <div class="profileSec">
     <div id="profile-box">
-      <h1>User profile</h1>
+      <h1>User profile
+      </h1>
+      <img src="@/assets/iconpacks-person.svg" alt="Author" height="100px"/>
       <h3>Basic information</h3>
       <label>Firstname </label>
       <p class="labelValue">{{ user.firstname }}</p>
@@ -32,13 +34,15 @@
 
       <div class="admin-feature-forms"> 
         <h3>Update a word in the dictionary</h3>
-        <form @submit.prevent="updateWord">
+        <form @submit.prevent="putWordDefinition">
           <label for="word">Word</label>
           <input v-model="updateWord" class="word-input" type="text" placeholder="Write a word to be updated"/>
           <label for="information">Definition</label>
           <textarea v-model="updateWordDefinition" class="word-input" rows="10" placeholder="Write a updated definition for the word" />
           <input id="update-word" type="submit" value="Update word"/>
         </form>
+        <p v-if="updateWordErrorMsg" class="error-msg">{{ updateWordErrorMsg }}</p>
+        <p v-if="updateWordSuccessMsg" class="success-msg">{{ updateWordSuccessMsg }}</p>
       </div>
 
     <div class="admin-feature-forms"> 
@@ -85,6 +89,12 @@ export default {
     createWordSuccessMsg() {
       return this.$store.state.createWordSuccessMsg
     },
+    updateWordErrorMsg() {
+      return this.$store.state.updateWordErrorMsg
+    },
+    updateWordSuccessMsg() {
+      return this.$store.state.updateWordSuccessMsg
+    },        
     deleteWordErrorMsg() {
       return this.$store.state.deleteWordErrorMsg
     },
@@ -95,6 +105,7 @@ export default {
 
   methods: {
     createWord() {
+      if (this.addWord && this.addWordDefinition) {
         const payload = {
           word: this.addWord,
           definition: this.addWordDefinition,
@@ -102,13 +113,35 @@ export default {
           role: this.user.role
         }
       this.$store.dispatch("createWord", payload);
+      }
+      else {
+        return
+      }
+    },
+    putWordDefinition() {
+        if(this.updateWord && this.updateWordDefinition) {
+        const payload = {
+          word: this.updateWord.toUpperCase(),
+          updateDefinition: this.updateWordDefinition,
+          author: `${this.user.firstname} ${this.user.lastname}`,
+          role: this.user.role
+        }  
+      this.$store.dispatch("putWordDefinition", payload);
+        }
+        else {
+          return
+        }
     },
     deleteWord() {
+      if (this.removeWord) {
         const payload = {
           word: this.removeWord,
           role: this.user.role
         }
-      this.$store.dispatch("deleteWord", payload);      
+      this.$store.dispatch("deleteWord", payload);    
+      } else {
+        return
+      }
     },
     deleteUser() {
       this.$confirm({
@@ -176,7 +209,9 @@ label {
     margin-top: 5%;
     margin-bottom: 10%;
 }
+
 .admin-feature-forms {
+  border-top: 1.5px solid #1f1671;
   max-width: 50vw;
   margin: auto;
 }
