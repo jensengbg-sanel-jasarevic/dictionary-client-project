@@ -103,6 +103,9 @@ export default {
   justify-content: space-around;
   justify-items: center;
 }
+.popUp-footer > button {
+  margin-top: 5px;
+}
 
 .popUp-body {
   position: relative;

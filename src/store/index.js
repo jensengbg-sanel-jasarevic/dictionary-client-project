@@ -1,148 +1,162 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import createPersistedState from 'vuex-persistedstate'
+import router from './../router'
 import userService from "../store/userService";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    plugins: [createPersistedState({
+      storage: window.localStorage,
+  })],
+
   state: {
     API_URL: "https://serverexamensarbete.herokuapp.com",
     wordsByLetter: null,
     word: null,
-    wordInfo: null,
-    wordAuthor: null,
-    wordComments: null,
-    errorMsg: "",
+    definition: null,
+    author: null,
+    comments: null,
+    getWordErrorMsg: null,
+    createWordSuccessMsg: null,
+    createWordErrorMsg: null,
+    deleteWordSuccessMsg: null,
+    deleteWordErrorMsg: null
   },
   mutations: {
     setWord(state, responseData) {
       state.word = responseData.word;
-      state.wordInfo = responseData.information;
-      state.wordAuthor = responseData.author;
+      state.definition = responseData.definition;
+      state.author = responseData.author;
+    },
+    setComments(state, comments) {
+      state.comments = comments;
     },
     setWordsByLetter(state, wordsByLetter) {
       state.wordsByLetter = wordsByLetter;
     },
-    setWordComments(state, wordComments) {
-      state.wordComments = wordComments;
+    registerGetWordError(state, errorMsg){
+      state.getWordErrorMsg = errorMsg
     },
-    setErrorMsg(state, error) {
-      state.errorMsg = error;
+    registerCreateWordSuccess(state, successMsg){
+      state.createWordSuccessMsg = successMsg
     },
+    registerCreateWordError(state, errorMsg){
+      state.createWordErrorMsg = errorMsg
+    },   
+    registerDeleteWordSuccess(state, successMsg){
+      state.deleteWordSuccessMsg = successMsg
+    },
+    registerDeleteWordError(state, errorMsg){
+      state.deleteWordErrorMsg = errorMsg
+    },
+    clear(state) {
+      state.word = null,
+      state.getWordErrorMsg = null,
+      state.createWordSuccessMsg = null,
+      state.createWordErrorMsg = null,
+      state.deleteWordSuccessMsg = null,
+      state.deleteWordErrorMsg = null
+    }    
   },
   actions: {
-    async getWord(ctx, word) {
-      let response = await axios.get(
-        `${ctx.state.API_URL}/api/dictionary/${word}`
-      );
+    async clearStateValues(ctx){
+      ctx.commit('clear')
+    },
+    async createWord(ctx, payload) {
+      ctx.commit("registerCreateWordError", null); 
+      ctx.commit("registerCreateWordSuccess", null); 
+      try {
+      await axios.post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
+        headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+      }); 
+        ctx.commit("registerCreateWordSuccess", "Added a new word to the dictionary");      
+      } catch(err) {
+        if (err.response.status === 401 || err.response.status === 403){
+          ctx.commit("registerCreateWordError", "Unauthorized");      
+        }else {
+        ctx.commit("registerCreateWordError", "This word is already in the dictionary");      
+        }
+      }
+   }, 
+   async getWord(ctx, word) {
+    ctx.commit("registerGetWordError", null); 
+     try {
+      let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/${word}`);
       let responseData = {
         word: response.data[0].word,
-        information: response.data[0].information,
-        author: response.data[0].author,
+        definition: response.data[0].definition,
+        author: response.data[0].author
       };
       ctx.commit("setWord", responseData);
-    },
-    async getWordsByLetter(ctx, letter) {
-      let response = await axios.get(
-        `${ctx.state.API_URL}/api/dictionary/words/${letter}`
-      );
-      let wordsByLetter = new Array();
-      response.data.forEach((item) => {
-        wordsByLetter.push(item.word);
-      });
-      ctx.commit("setWordsByLetter", wordsByLetter);
-    },
-    async putWordInfo(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
-      await axios
-        .put(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) ctx.commit("setErrorMsg", data.message);
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
-    async createWordInfo(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
-      await axios
-        .post(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) {
-            ctx.commit("setErrorMsg", data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
-
-    async deleteWord(ctx, payload) {
-      ctx.commit("setErrorMsg", "");
-      await axios
-        .delete(`${ctx.state.API_URL}/api/dictionary`, payload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + ctx.state.userService.token,
-          },
-        })
-        .then((response) => {
-          const data = response.data[0];
-          if (response.status != 200) {
-            ctx.commit("setErrorMsg", data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (err.response.status == 401) {
-            ctx.commit("setErrorMsg", "User is unautorized");
-          } else {
-            ctx.commit("setErrorMsg", "Please try again later");
-          }
-        });
-    },
-
-    async getComments(ctx, payload) {
-      let resp = await axios.get(`${ctx.state.API_URL}/api/comments`);
-      let wordComments = resp.data.filter((item) => item.word === payload);
-      ctx.commit("setWordComments", wordComments.reverse());
-    },
-    async postComment(ctx, payload) {
-      await axios.post(`${ctx.state.API_URL}/api/comments`, payload);
-    },
-    async deleteComment(ctx, commentID) {
-      await axios.delete(`${ctx.state.API_URL}/api/comments`, {
-        data: { id: commentID },
-      });
-    },
-    async patchVote(ctx, commentID) {
-      await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
-    },
+      ctx.commit("registerGetWordError", null); 
+     } catch(err) {
+      if (err.response.status === 404){
+        ctx.commit("registerGetWordError", "Word is not found in the dictionary");      
+      }
+     }
   },
+  async getWordsByLetter(ctx, letter) {
+    let response = await axios.get(`${ctx.state.API_URL}/api/dictionary/words/${letter}`);
+    let wordsByLetter = new Array();
+    response.data.forEach((item) => {
+      wordsByLetter.push(item.word);
+    });
+    ctx.commit("setWordsByLetter", wordsByLetter);
+  },      
+  async putWordDefinition(ctx, payload) {
+    await axios.put(`${ctx.state.API_URL}/api/dictionary/${payload.updateDefinition.word}`, payload, {
+      headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+    }); 
+  },
+  async deleteWord(ctx, payload) {
+    ctx.commit("registerCreateWordError", null); 
+    ctx.commit("registerCreateWordSuccess", null); 
+    ctx.commit("registerDeleteWordError", null); 
+    ctx.commit("registerDeleteWordSuccess", null); 
+    try {
+   await axios.delete(`${ctx.state.API_URL}/api/dictionary/${payload.word}`, {
+      data: payload, 
+      headers: {'authorization': `Bearer ${ctx.state.userService.token}`} 
+    });
+    ctx.commit("registerDeleteWordSuccess", "Word has been deleted from the dictionary");      
+    } catch(err){
+      if (err.response.status === 401 || err.response.status === 403){
+        ctx.commit("registerDeleteWordError", "Unauthorized");      
+      }else {
+        ctx.commit("registerDeleteWordError", "This word is not in the dictionary");      
+      }
+    }
+  },        
+  async postComment(ctx, payload) {
+    try {
+      await axios.post(`${ctx.state.API_URL}/api/comments`, payload, {
+        headers: { 'authorization': `Bearer ${ctx.state.userService.token}` }
+      });
+    } catch (err) {
+      if (err.response.status === 401){
+        router.push('/login')
+      }
+    } 
+  },   
+  async getComments(ctx, payload) {
+    let resp = await axios.get(`${ctx.state.API_URL}/api/comments`);
+    let comments = resp.data.filter((item) => item.word === payload);
+    ctx.commit("setComments", comments.reverse());
+  },
+  async patchCommentVote(ctx, commentID) {
+    await axios.patch(`${ctx.state.API_URL}/api/comments`, { commentID });
+  },  
+  async deleteComment(ctx, payload) {
+    await axios.delete(`${ctx.state.API_URL}/api/comments`, {
+      data: payload, 
+      headers: {'authorization': `Bearer ${ctx.state.userService.token}`} 
+    });      
+  }   
+},
   modules: {
-    userService,
+    userService
   },
 });

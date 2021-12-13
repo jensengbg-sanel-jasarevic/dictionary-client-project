@@ -1,61 +1,75 @@
 <template>
     <section class="homeSec">
-     <h1>Introducing New Dictionary Design!</h1>
-      <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
-      to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy! </p>
-      <h1>The Only Ad-Free Online Dictionary!</h1>
-      <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
-      We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!
-    </p>
+      <div>
+        <h1>Announcements</h1>
+      </div>
+      <div class="announcements-container">
+        <div class="announcements-items">
+          <div class="info-box">
+            <h1 class="info-header">Introducing new dictionary design!</h1>
+            <p>A better way to explore words.We've freshened the design to improve your experience, making it easier to find what you're looking for and more enticing
+            to explore new words. We've also surfaced many additional features that you might not have used yet, but are sure to enjoy!</p>
+          </div>
+          <div class="info-box">
+            <h1 class="info-header">The only ad-free online dictionary!</h1>
+            <p>We've made the dictionary an ad-free experience for everyone! Now you can focus on the words, and your learning, without any distractions.
+            We're proud to provide students, teachers, and life-long learners this uncluttered, user-friendly resource for word learning!</p>
+          </div>
+        </div>
+      </div>
    </section>
 </template>
 
 <script>
 export default {
   name: "Home",
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+  },
 };
+
 </script>
 
 <style scoped>
 .homeSec {
-    overflow-y: auto;
-    overflow-x: auto;
-    margin-top: 5%;
+    display: grid;
 }
-
-.bold {
-  -webkit-text-stroke: medium;
+h1{
+  font-weight: unset;
 }
-
-p {
-  text-align: center;
+.announcements-container {
+  margin: auto;
 }
-
-h1,
-h3,
-p {
-  color: #3d2f27;
+.announcements-items{
+  display: flex;
+  justify-content: space-around;
+  border-radius: 10px;
+  padding: 50px;
+  margin-bottom: 2%;
+  background-color: #60bad6;
+  color: #5e5e5e;
+  max-width: 70vw;
 }
-
-h3 {
-  margin: 0;
-  padding: 0;
-  font-size: 1.4rem;
+.info-header {
+  color: #1f1671;
 }
-
-@media screen and (max-width: 600px) {
-  .homeSec {
-  overflow-y: auto;
-  overflow-x: auto;
-  margin-top: 25%;
+.info-box {
+  background-color: #fff;
+  padding: 3%;
+  max-width: 30%;
+  border-radius: 10px;
 }
-h1 {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-p {
-  font-size: 0.8em;
-}
-
+@media (max-width: 800px) {
+  .announcements-items{
+    display: flex;
+    flex-direction: column;
+    max-width: 50vw;
+  }
+  .info-box{
+    max-width: unset;
+    margin-bottom: 5%;
+    font-size: 0.7em;
+    padding: 15%;
+  }
 }
 </style>
