@@ -38,11 +38,11 @@
       <h1>
         Index: <span id="clicked-letter">{{ clickedLetter }}</span>
       </h1>
-      <Word
-        v-for="item in wordsByLetter"
-        :key="item"
-        :word="item"
-      />
+        <Word
+          v-for="item in wordsByLetter"
+          :key="item"
+          :word="item"
+        />
     </div>
   </section>
 </template>
@@ -61,6 +61,10 @@ export default {
       clickedLetter: null,
     }
   },
+  
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+  },
 
   methods: {
     routeToWordsByLetter(event) {
@@ -70,8 +74,8 @@ export default {
       } else {
         this.clickedLetter = letter.toUpperCase();
         this.$store.dispatch("getWordsByLetter", letter);
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        let scroll = document.getElementById("clicked-letter");
+        scroll.scrollIntoView();
       }
     }
   },

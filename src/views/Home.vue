@@ -23,7 +23,11 @@
 <script>
 export default {
   name: "Home",
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+  },
 };
+
 </script>
 
 <style scoped>

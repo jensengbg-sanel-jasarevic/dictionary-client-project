@@ -13,6 +13,7 @@
       />
       <button type="submit"><i class="fas fa-search"></i> Search</button>
     </form>
+    <p v-if="getWordErrorMsg" id="word-not-found">{{ getWordErrorMsg }}</p>
     <WordInfo />
   </section>
 </template>
@@ -32,6 +33,10 @@ export default {
     };
   },
 
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+},
+
   mounted() {
     if (this.$route.params.search === "start") {
       // URL parameter for searching words in app
@@ -46,6 +51,12 @@ export default {
     }
   },
 
+computed: {
+    getWordErrorMsg() {
+      return this.$store.state.getWordErrorMsg
+    }
+},
+
   methods: {
     // State management with Vues ecosystem "Vuex"
     // Vuex = tool that works as an environment for the components in a Vue app
@@ -53,6 +64,7 @@ export default {
     // Store response data in Vuex environment (mutate & keep it in the state)
     // Components now can utilize data from the centralized store of the app
     getWord() {
+      this.$store.dispatch('clearStateValues')
       this.$store.dispatch("getWord", this.searchInputValue.toUpperCase());
       this.$store.dispatch("getComments", this.searchInputValue.toUpperCase());
       if (this.$route.path != `/dictionary/${this.searchInputValue}`) {
@@ -92,6 +104,9 @@ export default {
   cursor: pointer;
   height: 40px;
   color: white;
+}
+#word-not-found{
+  color: #ec4b43;
 }
 
 @media only screen and (max-width: 800px) {

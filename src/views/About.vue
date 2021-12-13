@@ -77,7 +77,10 @@ export default {
   name: "Contact",
   components: {
     ContactForm
-  }
+  },
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+  },
 }
 </script>
 

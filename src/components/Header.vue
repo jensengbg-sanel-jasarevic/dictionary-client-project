@@ -213,12 +213,14 @@ img {
   align-items: flex-end;
   justify-content: space-between;
 }
+
 label {
   color: #fff;
   display: inline-block;
   margin: 15px 0 10px;
   text-transform: uppercase;
 }
+
 @media screen and (max-width: 800px) {
   .navDiv .nav {
     display: none;

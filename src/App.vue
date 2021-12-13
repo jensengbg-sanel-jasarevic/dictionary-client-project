@@ -8,7 +8,7 @@
     />
     <div id="main-header">
     <Header></Header>
-    <h1 id="header-title">IT Dictionary</h1>
+    <h1 id="header-title">IT Web Dictionary</h1>
     </div>
     <vue-confirm-dialog class="confirmBtn"></vue-confirm-dialog>
     <router-view class="routerView" />
@@ -29,6 +29,9 @@ export default {
 </script>
 
 <style>
+html{
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   padding: 0;

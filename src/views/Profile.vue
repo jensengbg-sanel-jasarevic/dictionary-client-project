@@ -1,7 +1,7 @@
 <template>
   <div class="profileSec">
     <div id="profile-box">
-      <h2>User profile</h2>
+      <h1>User profile</h1>
       <h3>Basic information</h3>
       <label>Firstname </label>
       <p class="labelValue">{{ user.firstname }}</p>
@@ -11,20 +11,48 @@
       <p class="labelValue">{{ user.email }}</p>
       <label>Role</label>
       <p class="labelValue">{{ userRole }}</p>
-      <button id="deleteBtn" tabindex="0" @click="deleteUser">
+      <button id="deleteUserBtn" tabindex="0" @click="deleteUser">
         Delete me!
       </button>
     </div>
-    <div id="create-word-box"> 
-      <h3>Add a word to the dictionary</h3>
-      <form @submit.prevent="createWord">
-        <label for="word">Word</label>
-        <input v-model="word" class="create-word-input" type="text" placeholder="Write a word to be added"/>
-        <label for="information">Definition</label>
-        <textarea v-model="wordDefinition" class="create-word-input" rows="10" placeholder="Write a definition for the word" />
-        <input id="submit-word" type="submit" value="Post"/>
+    
+    <div v-if="userRole === 'Admin'">
+      <div class="admin-feature-forms"> 
+        <h3>Add a word to the dictionary</h3>
+        <form @submit.prevent="createWord">
+          <label for="word">Word</label>
+          <input v-model="addWord" class="word-input" type="text" placeholder="Write a word to be added"/>
+          <label for="information">Definition</label>
+          <textarea v-model="addWordDefinition" class="word-input" rows="10" placeholder="Write a definition for the word" />
+          <input id="add-word" type="submit" value="Add word"/>
+        </form>
+        <p v-if="createWordErrorMsg" class="error-msg">{{ createWordErrorMsg }}</p>
+        <p v-if="createWordSuccessMsg" class="success-msg">{{ createWordSuccessMsg }}</p>
+      </div>
+
+      <div class="admin-feature-forms"> 
+        <h3>Update a word in the dictionary</h3>
+        <form @submit.prevent="updateWord">
+          <label for="word">Word</label>
+          <input v-model="updateWord" class="word-input" type="text" placeholder="Write a word to be updated"/>
+          <label for="information">Definition</label>
+          <textarea v-model="updateWordDefinition" class="word-input" rows="10" placeholder="Write a updated definition for the word" />
+          <input id="update-word" type="submit" value="Update word"/>
+        </form>
+      </div>
+
+    <div class="admin-feature-forms"> 
+      <h3>Delete a word in the dictionary</h3>
+      <form @submit.prevent="deleteWord">
+        <label for="deleteWord">Word</label>
+        <input v-model="removeWord" class="word-input" type="text" placeholder="Write a word to be deleted"/>
+        <input id="delete-word" type="submit" value="Delete word"/>
       </form>
+      <p v-if="deleteWordErrorMsg" class="error-msg">{{ deleteWordErrorMsg }}</p>
+      <p v-if="deleteWordSuccessMsg" class="success-msg">{{ deleteWordSuccessMsg }}</p>
     </div>
+    </div>
+
   </div>
 </template>
 
@@ -34,29 +62,53 @@ export default {
 
   data() {
     return {
-      word: null,
-      wordDefinition: null
+      addWord: null,
+      addWordDefinition: null,
+      updateWord: null,
+      updateWordDefinition: null,
+      removeWord: null
     }
   },
-
+  beforeMount(){
+  this.$store.dispatch('clearStateValues')
+  },
   computed: {
     user() {
       return this.$store.state.userService.user;
     },
     userRole() {
       return this.user.role == "admin" ? "Admin" : "User";
-    }
+    },
+    createWordErrorMsg() {
+      return this.$store.state.createWordErrorMsg
+    },
+    createWordSuccessMsg() {
+      return this.$store.state.createWordSuccessMsg
+    },
+    deleteWordErrorMsg() {
+      return this.$store.state.deleteWordErrorMsg
+    },
+    deleteWordSuccessMsg() {
+      return this.$store.state.deleteWordSuccessMsg
+    }          
   },
 
   methods: {
     createWord() {
         const payload = {
-          word: this.word,
-          definition: this.wordDefinition,
+          word: this.addWord,
+          definition: this.addWordDefinition,
           author: `${this.user.firstname} ${this.user.lastname}`,
           role: this.user.role
         }
       this.$store.dispatch("createWord", payload);
+    },
+    deleteWord() {
+        const payload = {
+          word: this.removeWord,
+          role: this.user.role
+        }
+      this.$store.dispatch("deleteWord", payload);      
     },
     deleteUser() {
       this.$confirm({
@@ -94,14 +146,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../style/common";
-.profileSec {
-  display: grid;
-  grid-template-columns: 60% 40%;
-  grid-template-areas: "left right";
-  min-height: 80vh;
-}
-h2 {
-  font-size: 1.75rem;
+h1, h4 {
   font-weight: unset;
   line-height: 1.2;
 }
@@ -121,7 +166,7 @@ label {
   font-weight: none !important;
   text-transform: none;
 }
-#deleteBtn {
+#deleteUserBtn {
     background-color: #ec4b43;
     border: none;
     border-radius: 30px;
@@ -129,15 +174,18 @@ label {
     color: white;
     cursor: pointer;
     margin-top: 5%;
+    margin-bottom: 10%;
 }
-#create-word-box {
-  margin-right: 15%;
+.admin-feature-forms {
+  max-width: 50vw;
+  margin: auto;
 }
-#create-word-box > form {
+.admin-feature-forms > form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10%;
 }
-.create-word-input{
+.word-input{
   padding: 15px;
   outline: none;
   border-radius: 20px;  
@@ -148,7 +196,16 @@ label {
   box-shadow: none;
   resize: none;
 }
-#submit-word{
+#add-word{
+  margin-top: 5%;
+  background-color: #0F9D58;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 16px 32px;
+  cursor: pointer;
+}
+#update-word{
   margin-top: 5%;
   background-color: #ffb000;
   color: white;
@@ -157,15 +214,28 @@ label {
   padding: 16px 32px;
   cursor: pointer;
 }
+#delete-word{
+  margin-top: 5%;
+  background-color:#ec4b43;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 16px 32px;
+  cursor: pointer;
+}
+.success-msg {
+  color:#0F9D58;
+}
+.error-msg {
+  color: #ec4b43;
+}
 
 @media screen and (max-width: 800px) {
   .profileSec{
     display: flex;
     flex-direction: column;
   }
-  #profile-box{
-    margin-right: 15%;
-  }
+
   label {
     color: rgb(73, 72, 72);
     display: inline-block;
@@ -189,8 +259,5 @@ label {
     font-weight: bold;
     line-height: 1.2;
   }  
-  #create-word-box {
-    padding: 10%;
-  }
 }
 </style>

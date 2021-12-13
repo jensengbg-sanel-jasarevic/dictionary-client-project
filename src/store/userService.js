@@ -14,7 +14,6 @@ export default {
     },
     loggedIn(state, authorizedUser){
       state.error = "";
-      sessionStorage.setItem("token", authorizedUser.token)
       state.token = authorizedUser.token
       state.user = authorizedUser.user
       state.active = true
@@ -50,6 +49,7 @@ export default {
       }
     },
     async logout(ctx, userDetails) {
+      ctx.commit("registerError", "");
       await axios.patch(`${ctx.state.API_URL}/auth`, { user: userDetails.email }, {
         headers: { 'authorization': `Bearer ${ctx.state.token}` }
       }); 
