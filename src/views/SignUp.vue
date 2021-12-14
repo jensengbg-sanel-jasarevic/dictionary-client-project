@@ -35,6 +35,23 @@
     </Popup>
 
     <br />
+
+    <div>
+      <div v-if="securityError" class="error">{{ securityError }}</div>
+      <label>Security Question</label>
+      <select v-model="question">
+        <option value="bornCity">What city were you born in?</option>
+        <option value="petName">What is the name of your favorite pet?</option>
+        <option value="motherName">What is your mother's maiden name?</option>
+        <option value="highSchoolName">What high school did you attend?</option>
+      </select>
+      <label>Answer</label>
+      <div v-if="answerError" class="error">{{ answerError }}</div>
+      <input type="Text" v-model="answer" required />
+
+      <br />
+    </div>
+
     <div>
       <input type="checkbox" v-model="terms" required />
       <label
@@ -53,18 +70,25 @@
       <template v-slot:header> Terms and Conditions </template>
 
       <template v-slot:body>
-        These terms and conditions have been generated with the help of the terms and conditions sample generator.
-        These standard terms and conditions written on this webpage shall manage your use of our website.
-        These terms will be applied fully and affect to your use of this Website. By using this website, you agreed
-        to accept all terms and conditions written in here. You must not use this website if you disagree with any of
-        these website standard terms and conditions. We are permitted to revise these terms at any time as it sees fit,
-        and by using this website you are expected to review these terms on a regular basis The site is allowed to assign,
-        transfer, and subcontract its rights and/or obligations under these terms without any notification. However, you are
-        not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these terms. These terms
-        constitute the entire agreement between the website and you in relation to your use of this website, and supersede all
-        prior agreements and understandings. These terms will be governed by and interpreted in accordance with the laws of the
-        state of se, and you submit to the non-exclusive jurisdiction of the state and federal courts located in se for the resolution
-        of any disputes.
+        These terms and conditions have been generated with the help of the
+        terms and conditions sample generator. These standard terms and
+        conditions written on this webpage shall manage your use of our website.
+        These terms will be applied fully and affect to your use of this
+        Website. By using this website, you agreed to accept all terms and
+        conditions written in here. You must not use this website if you
+        disagree with any of these website standard terms and conditions. We are
+        permitted to revise these terms at any time as it sees fit, and by using
+        this website you are expected to review these terms on a regular basis
+        The site is allowed to assign, transfer, and subcontract its rights
+        and/or obligations under these terms without any notification. However,
+        you are not allowed to assign, transfer, or subcontract any of your
+        rights and/or obligations under these terms. These terms constitute the
+        entire agreement between the website and you in relation to your use of
+        this website, and supersede all prior agreements and understandings.
+        These terms will be governed by and interpreted in accordance with the
+        laws of the state of se, and you submit to the non-exclusive
+        jurisdiction of the state and federal courts located in se for the
+        resolution of any disputes.
       </template>
       <template v-slot:okText> Accept </template>
       <template v-slot:cancelText> Decline </template>
@@ -95,16 +119,40 @@ export default {
       isAdminCode: false,
       adminCode: "",
       isAdminUser: false,
+      question: "",
+      answer: "",
+      securityError: "",
+      answerError: "",
     };
   },
   methods: {
+    resetError() {
+      this.passwordError = "";
+      this.securityError = "";
+      this.answerError = "";
+    },
     handleSubmit() {
+      //reset all the errors before start of submit
+      this.resetError();
       //Validate password field length
       this.passwordError =
         this.password.length > 6
           ? ""
           : "Password should be more than 6 characters long!";
-      if (!this.passwordError) {
+      //check if the security question and answer is selected
+      if (this.question === "" || this.answer === "") {
+        this.securityError = "Please select a security question and answer";
+      }
+      //check if the security answer contains only alphabets and space
+      var regex = new RegExp("^[a-zA-Z ]+$");
+      if (
+        this.answer == null ||
+        this.answer == "undefined" ||
+        !regex.test(this.answer)
+      ) {
+        this.answerError = "Answer should only contain alphabets";
+      }
+      if (!this.passwordError && !this.securityError && !this.answerError) {
         if (this.role === "admin" && this.isAdminUser) {
           this.registerUser();
         } else if (this.role === "user") {
@@ -127,7 +175,8 @@ export default {
         email: this.email,
         password: this.password,
         role: this.role,
-        terms: new Date().toLocaleString()
+        terms: new Date().toLocaleString(),
+        security: this.question + ":" + this.answer,
       };
       this.$store
         .dispatch("registerUser", userDetails)
@@ -256,7 +305,7 @@ h3 {
 .register-user {
   font-size: 24px;
   font-weight: 500;
-  color: #25D366;
+  color: #25d366;
 }
 #popup-input {
   display: block;
@@ -299,7 +348,7 @@ h3 {
   .register-user {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #25D366;
+    color: #25d366;
   }
 }
 </style>

@@ -21,7 +21,7 @@
           <router-link to="/browse">
             <div class="menu">
               <i class="fas fa-book-open"></i> Browse A-Z
-              </div></router-link
+            </div></router-link
           >
           <router-link to="/about"
             ><div class="menu">
@@ -158,7 +158,7 @@ header {
   flex-direction: column;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background-color: #1d2a57;
-  border-bottom:30px solid #fff;
+  border-bottom: 30px solid #fff;
 }
 .headerDiv {
   display: flex;
@@ -179,7 +179,7 @@ header {
 .nav {
   display: flex;
   justify-content: flex-start;
-  margin-left: 30%;
+  margin-left: 20%;
   overflow: hidden;
 }
 .nav a {
@@ -196,7 +196,7 @@ header {
   text-decoration: none;
 }
 .nav a:hover {
-  color: #25D366;
+  color: #25d366;
   text-decoration: none;
 }
 .icon {
@@ -238,7 +238,7 @@ label {
     top: 0;
     margin-top: 50px;
     right: 0;
-    height: 80%;
+    height: 90%;
     position: fixed;
     width: 35%;
     display: flex;
@@ -246,11 +246,7 @@ label {
     align-items: flex-end;
     flex-direction: column;
     transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    background: linear-gradient(315deg, transparent 75%, #515a5f 0) -10px 0,
-      linear-gradient(45deg, transparent 75%, #465158 0) -10px 0,
-      linear-gradient(135deg, #3b4a55 50%, transparent 0) 0 0,
-      linear-gradient(45deg, #232e36 50%, #1b2831 0) 0 0 #13222d;
-    background-size: 20px 20px;
+    background-color: #1d2a57;
   }
   .icon {
     position: absolute;
@@ -260,17 +256,20 @@ label {
     margin-right: 20px;
   }
   .navDiv.responsive .nav {
-    margin-left: 0;
+    margin-left: 15px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     flex-grow: 1;
-    align-items: center;
+    text-align: right;
   }
   .navDiv.responsive .nav a {
     display: block;
     text-align: left;
     margin-bottom: 20px;
+  }
+  .navDiv.responsive .nav i {
+    margin-right: 10px;
   }
   .navDiv.responsive .logDetails {
     display: flex;

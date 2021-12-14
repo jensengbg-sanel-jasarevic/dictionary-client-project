@@ -11,54 +11,136 @@
       <p class="labelValue">{{ user.email }}</p>
       <label>Role</label>
       <p class="labelValue">{{ userRole }}</p>
-      <button id="deleteUserBtn" tabindex="0" @click="deleteUser">
-        Delete me!
-      </button>
+      <div>
+        <button class="primaryButton" tabindex="0" @click="changePassword">
+          <span class="buttonLabel">Change Password</span>
+        </button>
+        &nbsp;&nbsp;
+        <button class="secondaryButton" tabindex="0" @click="openSecurityPopUp">
+          <span class="buttonLabel">Change Security Question</span>
+        </button>
+        <!-- Popup to update Security question and answer -->
+        <Popup
+          v-show="showSecurityPopup"
+          @ok="updateSecurity"
+          @close="closeSecurityPopUp"
+          @cancel="closeSecurityPopUp"
+        >
+          <template v-slot:header> Update Security Question </template>
+
+          <template v-slot:body>
+            <div style="width: 600px">
+              <div v-if="securityError" class="error">{{ securityError }}</div>
+              <label>Security Question</label>
+              <select v-model="question" class="popupInput">
+                <option value="bornCity">What city were you born in?</option>
+                <option value="petName">
+                  What is the name of your favorite pet?
+                </option>
+                <option value="motherName">
+                  What is your mother's maiden name?
+                </option>
+                <option value="highSchoolName">
+                  What high school did you attend?
+                </option>
+              </select>
+              <label>Answer</label>
+              <div v-if="answerError" class="error">{{ answerError }}</div>
+              <input type="Text" v-model="answer" class="popupInput" required />
+
+              <br />
+            </div>
+          </template>
+          <template v-slot:okText> Update </template>
+          <template v-slot:cancelText> Cancel </template>
+        </Popup>
+
+        &nbsp;&nbsp;
+        <button id="deleteUserBtn" tabindex="0" @click="deleteUser">
+          Delete me!
+        </button>
+      </div>
     </div>
-    
+
     <div v-if="userRole === 'Admin'">
-      <div class="admin-feature-forms"> 
+      <div class="admin-feature-forms">
         <h3>Add a word to the dictionary</h3>
         <form @submit.prevent="createWord">
           <label for="word">Word</label>
-          <input v-model="addWord" class="word-input" type="text" placeholder="Write a word to be added"/>
+          <input
+            v-model="addWord"
+            class="word-input"
+            type="text"
+            placeholder="Write a word to be added"
+          />
           <label for="information">Definition</label>
-          <textarea v-model="addWordDefinition" class="word-input" rows="10" placeholder="Write a definition for the word" />
-          <input id="add-word" type="submit" value="Add word"/>
+          <textarea
+            v-model="addWordDefinition"
+            class="word-input"
+            rows="10"
+            placeholder="Write a definition for the word"
+          />
+          <input id="add-word" type="submit" value="Add word" />
         </form>
-        <p v-if="createWordErrorMsg" class="error-msg">{{ createWordErrorMsg }}</p>
-        <p v-if="createWordSuccessMsg" class="success-msg">{{ createWordSuccessMsg }}</p>
+        <p v-if="createWordErrorMsg" class="error-msg">
+          {{ createWordErrorMsg }}
+        </p>
+        <p v-if="createWordSuccessMsg" class="success-msg">
+          {{ createWordSuccessMsg }}
+        </p>
       </div>
 
-      <div class="admin-feature-forms"> 
+      <div class="admin-feature-forms">
         <h3>Update a word in the dictionary</h3>
         <form @submit.prevent="updateWord">
           <label for="word">Word</label>
-          <input v-model="updateWord" class="word-input" type="text" placeholder="Write a word to be updated"/>
+          <input
+            v-model="updateWord"
+            class="word-input"
+            type="text"
+            placeholder="Write a word to be updated"
+          />
           <label for="information">Definition</label>
-          <textarea v-model="updateWordDefinition" class="word-input" rows="10" placeholder="Write a updated definition for the word" />
-          <input id="update-word" type="submit" value="Update word"/>
+          <textarea
+            v-model="updateWordDefinition"
+            class="word-input"
+            rows="10"
+            placeholder="Write a updated definition for the word"
+          />
+          <input id="update-word" type="submit" value="Update word" />
         </form>
       </div>
 
-    <div class="admin-feature-forms"> 
-      <h3>Delete a word in the dictionary</h3>
-      <form @submit.prevent="deleteWord">
-        <label for="deleteWord">Word</label>
-        <input v-model="removeWord" class="word-input" type="text" placeholder="Write a word to be deleted"/>
-        <input id="delete-word" type="submit" value="Delete word"/>
-      </form>
-      <p v-if="deleteWordErrorMsg" class="error-msg">{{ deleteWordErrorMsg }}</p>
-      <p v-if="deleteWordSuccessMsg" class="success-msg">{{ deleteWordSuccessMsg }}</p>
+      <div class="admin-feature-forms">
+        <h3>Delete a word in the dictionary</h3>
+        <form @submit.prevent="deleteWord">
+          <label for="deleteWord">Word</label>
+          <input
+            v-model="removeWord"
+            class="word-input"
+            type="text"
+            placeholder="Write a word to be deleted"
+          />
+          <input id="delete-word" type="submit" value="Delete word" />
+        </form>
+        <p v-if="deleteWordErrorMsg" class="error-msg">
+          {{ deleteWordErrorMsg }}
+        </p>
+        <p v-if="deleteWordSuccessMsg" class="success-msg">
+          {{ deleteWordSuccessMsg }}
+        </p>
+      </div>
     </div>
-    </div>
-
   </div>
 </template>
 
 <script>
+import Popup from "../components/PopUp.vue";
 export default {
   name: "Profile",
+  components: {
+    Popup,
+  },
 
   data() {
     return {
@@ -66,11 +148,16 @@ export default {
       addWordDefinition: null,
       updateWord: null,
       updateWordDefinition: null,
-      removeWord: null
-    }
+      removeWord: null,
+      showSecurityPopup: false,
+      question: "",
+      answer: "",
+      securityError: "",
+      answerError: "",
+    };
   },
-  beforeMount(){
-  this.$store.dispatch('clearStateValues')
+  beforeMount() {
+    this.$store.dispatch("clearStateValues");
   },
   computed: {
     user() {
@@ -80,35 +167,35 @@ export default {
       return this.user.role == "admin" ? "Admin" : "User";
     },
     createWordErrorMsg() {
-      return this.$store.state.createWordErrorMsg
+      return this.$store.state.createWordErrorMsg;
     },
     createWordSuccessMsg() {
-      return this.$store.state.createWordSuccessMsg
+      return this.$store.state.createWordSuccessMsg;
     },
     deleteWordErrorMsg() {
-      return this.$store.state.deleteWordErrorMsg
+      return this.$store.state.deleteWordErrorMsg;
     },
     deleteWordSuccessMsg() {
-      return this.$store.state.deleteWordSuccessMsg
-    }          
+      return this.$store.state.deleteWordSuccessMsg;
+    },
   },
 
   methods: {
     createWord() {
-        const payload = {
-          word: this.addWord,
-          definition: this.addWordDefinition,
-          author: `${this.user.firstname} ${this.user.lastname}`,
-          role: this.user.role
-        }
+      const payload = {
+        word: this.addWord,
+        definition: this.addWordDefinition,
+        author: `${this.user.firstname} ${this.user.lastname}`,
+        role: this.user.role,
+      };
       this.$store.dispatch("createWord", payload);
     },
     deleteWord() {
-        const payload = {
-          word: this.removeWord,
-          role: this.user.role
-        }
-      this.$store.dispatch("deleteWord", payload);      
+      const payload = {
+        word: this.removeWord,
+        role: this.user.role,
+      };
+      this.$store.dispatch("deleteWord", payload);
     },
     deleteUser() {
       this.$confirm({
@@ -116,7 +203,7 @@ export default {
         message: "Are you sure you want to delete the user?",
         button: {
           yes: "Delete",
-          no: "Cancel"
+          no: "Cancel",
         },
         callback: (confirm) => {
           if (confirm == true) {
@@ -126,27 +213,78 @@ export default {
                 auth: false,
                 message: error != "" ? error : "Deleted successfully",
                 button: {
-                  yes: "Ok"
+                  yes: "Ok",
                 },
                 callback: (confirm) => {
                   if (confirm == true && error == "") {
                     this.$router.push(`/`);
                   }
-                }
-              })
-            })
+                },
+              });
+            });
           }
-        }
-      })
-    }
-  }
-
+        },
+      });
+    },
+    changePassword() {
+      this.$router.push("/changePassword");
+    },
+    openSecurityPopUp() {
+      this.question = "";
+      this.answer = "";
+      this.showSecurityPopup = true;
+    },
+    closeSecurityPopUp() {
+      this.showSecurityPopup = false;
+    },
+    resetError() {
+      this.securityError = "";
+      this.answerError = "";
+    },
+    updateSecurity() {
+      //reset all the errors before update
+      this.resetError();
+      //check if the Security question and answer is selected
+      if (this.question === "" || this.answer === "") {
+        this.securityError = "Please select a Security question and answer";
+      }
+      //check if the Security answer contains only alphabets and space
+      var regex = new RegExp("^[a-zA-Z ]+$");
+      if (
+        this.answer == null ||
+        this.answer == "undefined" ||
+        !regex.test(this.answer)
+      ) {
+        this.answerError = "Answer should only contain alphabets";
+      }
+      if (!this.securityError && !this.answerError) {
+        const userDetails = {
+          email: this.user.email,
+          security: this.question + ":" + this.answer,
+        };
+        this.$store.dispatch("updateSecurity", userDetails).then(() => {
+          const error = this.$store.state.userService.error;
+          this.$confirm({
+            auth: false,
+            message:
+              error != ""
+                ? error
+                : "Security question for the user updated successfully",
+            button: {
+              no: "Ok",
+            },
+          });
+        });
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../style/common";
-h1, h4 {
+h1,
+h4 {
   font-weight: unset;
   line-height: 1.2;
 }
@@ -167,14 +305,17 @@ label {
   text-transform: none;
 }
 #deleteUserBtn {
-    background-color: #ec4b43;
-    border: none;
-    border-radius: 30px;
-    padding: 16px 32px;
-    color: white;
-    cursor: pointer;
-    margin-top: 5%;
-    margin-bottom: 10%;
+  background-color: #ec4b43;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 32px;
+  color: white;
+  cursor: pointer;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+#deleteUserBtn:hover {
+  background-color: #8a302c;
 }
 .admin-feature-forms {
   max-width: 50vw;
@@ -185,27 +326,17 @@ label {
   flex-direction: column;
   margin-bottom: 10%;
 }
-.word-input{
-  padding: 15px;
-  outline: none;
-  border-radius: 20px;  
-  border: 1px solid #1f1671;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  resize: none;
-}
-#add-word{
+
+#add-word {
   margin-top: 5%;
-  background-color: #0F9D58;
+  background-color: #0f9d58;
   color: white;
   border: none;
   border-radius: 30px;
   padding: 16px 32px;
   cursor: pointer;
 }
-#update-word{
+#update-word {
   margin-top: 5%;
   background-color: #ffb000;
   color: white;
@@ -214,9 +345,9 @@ label {
   padding: 16px 32px;
   cursor: pointer;
 }
-#delete-word{
+#delete-word {
   margin-top: 5%;
-  background-color:#ec4b43;
+  background-color: #ec4b43;
   color: white;
   border: none;
   border-radius: 30px;
@@ -224,14 +355,24 @@ label {
   cursor: pointer;
 }
 .success-msg {
-  color:#0F9D58;
+  color: #0f9d58;
 }
 .error-msg {
-  color: #ec4b43;
+  color: hsl(3, 82%, 59%);
+}
+
+.popupInput {
+  display: block;
+  padding: 5px 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: #555;
 }
 
 @media screen and (max-width: 800px) {
-  .profileSec{
+  .profileSec {
     display: flex;
     flex-direction: column;
   }
@@ -258,6 +399,20 @@ label {
     font-size: 1.25rem;
     font-weight: bold;
     line-height: 1.2;
-  }  
+  }
+
+  .button-div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  #deleteUserBtn {
+    font-size: 10px;
+  }
 }
 </style>

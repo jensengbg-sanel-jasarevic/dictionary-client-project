@@ -5,11 +5,21 @@
     <template v-slot:body>
       <form>
         <label>Name</label>
-        <input type="Text" v-model="contactFormData.name" />
+        <input type="Text" class="word-input" v-model="contactFormData.name" />
         <label>Email</label>
-        <input type="email" v-model="contactFormData.email" required />
+        <input
+          type="email"
+          class="word-input"
+          v-model="contactFormData.email"
+          required
+        />
         <label>Message</label>
-        <textarea rows="10" v-model="contactFormData.message" required />
+        <textarea
+          rows="10"
+          class="word-input"
+          v-model="contactFormData.message"
+          required
+        />
         <div class="form-result">
           <p class="alert alert-success" v-if="success && !error">
             Message sent successfully.
@@ -64,14 +74,16 @@ export default {
 <style lang="scss" scoped>
 @import "../style/common";
 form {
-  max-width: 600px;
-  width: 600px;
+  max-width: 500px;
+  width: 500px;
   margin-top: 10px;
   margin-left: 20px;
   background: #fff;
   text-align: left;
   border-radius: 10px;
-  min-height: 75vh;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -79,26 +91,9 @@ label {
   display: inline-block;
   margin: 15px 0 10px;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
-input {
-  display: block;
-  padding: 5px 6px;
-  width: 80%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid #ddd;
-  color: #555;
-}
-
-textarea {
-  display: block;
-  padding: 5px 6px;
-  width: 80%;
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  color: #555;
-}
 .form-control {
   width: 80%;
   padding: 12px 15px;
@@ -106,13 +101,7 @@ textarea {
   border-radius: 4px;
   box-sizing: border-box;
 }
-input[type="text"].form-control {
-  margin: 8px 0;
-  display: inline-block;
-}
-textarea.form-control {
-  resize: none;
-}
+
 .alert {
   padding: 0 10px;
 }

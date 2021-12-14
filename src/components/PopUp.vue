@@ -80,7 +80,7 @@ export default {
   flex-direction: column;
   min-width: 300px;
   max-width: 1000px;
-  max-height: 500px;
+  max-height: 700px;
 }
 
 .popUp-header,

@@ -7,11 +7,7 @@
     <div v-if="passwordError" class="error">{{ passwordError }}</div>
     <input type="password" v-model="password" />
     <br />
-    <button
-      class="primaryButton"
-      tabindex="0"
-      type="submit"
-    >
+    <button class="primaryButton" tabindex="0" type="submit">
       <span class="buttonLabel">Login</span>
     </button>
     &nbsp;&nbsp;
@@ -61,13 +57,7 @@ export default {
       }
     },
     forgotPassword() {
-      this.$confirm({
-        auth: false,
-        message: "Yet to be implemented",
-        button: {
-          no: "Ok",
-        },
-      });
+      this.$router.push("/changePassword");
     },
   },
 };
