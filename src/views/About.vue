@@ -59,7 +59,6 @@
         </div>
       </div>
     </div>
-
     <button
       class="primaryButton"
       tabindex="0"
@@ -79,7 +78,6 @@
 </template>
 
 <script>
-import ContactForm from "../components/ContactForm.vue";
 export default {
   name: "Contact",
   components: {

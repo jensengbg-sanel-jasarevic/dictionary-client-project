@@ -2,10 +2,11 @@ import axios from "axios";
 
 export default {
   state: {
-    API_URL: "http://serverexamensarbete.herokuapp.com/api",
+    API_URL: "https://serverexamensarbete.herokuapp.com/api",
     token: "",
     user: [],
     error: "",
+    passwordUpdatedMsg: "",
     active: false,
   },
   mutations: {
@@ -23,6 +24,9 @@ export default {
       state.user = [];
       state.active = false;
     },
+    registerPasswordUpdatedMsg(state, message) {
+      state.passwordUpdatedMsg = message
+    } 
   },
   actions: {
     async registerUser(ctx, userDetails) {
@@ -72,14 +76,17 @@ export default {
         ctx.commit("registerError", errorMsg);
       }
     },
-    async updatePassword(ctx, data) {
+    async updatePassword(ctx, payload) {
       ctx.commit("registerError", "");
+      ctx.commit("registerPasswordUpdatedMsg", "");
       try {
         await axios.patch(`${ctx.state.API_URL}/accounts`, data, {
           headers: { authorization: `Bearer ${ctx.state.token}` },
         });
+        const passwordUpdatedMsg = "Password successfully updated"
+        ctx.commit("registerPasswordUpdatedMsg", passwordUpdatedMsg );      
       } catch (err) {
-        const errorMsg = err.response.data.message;
+        const errorMsg = "Credentials provided are not valid"
         ctx.commit("registerError", errorMsg);
       }
     },

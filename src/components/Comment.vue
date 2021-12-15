@@ -48,7 +48,13 @@ export default {
   },
   methods: {
     putWordDefinition() {
-      this.$store.dispatch("putWordDefinition", {updateDefinition: this.comment, role: this.user.role});
+      const payload = {
+          word: this.comment.word,
+          updateDefinition: this.comment.comment,
+          author: this.comment.author,
+          role: this.user.role
+        } 
+      this.$store.dispatch("putWordDefinition", payload);
       this.$emit("approvedComment", this.comment);
     },
     deleteComment() {
