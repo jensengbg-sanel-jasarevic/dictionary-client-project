@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Store from '../store/index.js'
+import Store from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -39,7 +39,12 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: () => import("../views/Profile.vue"),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/changePassword",
+    name: "ChangePassword",
+    component: () => import("../views/ChangePassword.vue"),
   },
 ];
 
@@ -50,18 +55,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-  
-    if(Store.state.userService.active === false) { 
-      next({ path: '/login', query: { redirect: to.fullPath } })
-    } 
-    next()
-    } 
-  
-  else {
-    next()
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (Store.state.userService.active === false) {
+      next({ path: "/login", query: { redirect: to.fullPath } });
+    }
+    next();
+  } else {
+    next();
   }
-  
-  })
+});
 
 export default router;

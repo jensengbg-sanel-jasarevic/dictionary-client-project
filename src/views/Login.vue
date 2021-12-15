@@ -1,40 +1,20 @@
 <template>
-  <div>
-    <form @submit.prevent="handleSubmit()">
-      <h3>Login</h3>
-      <label>Email</label>
-      <input type="email" v-model="email" required />
-      <label>Password</label>
-      <div v-if="passwordError" class="error">{{ passwordError }}</div>
-      <input type="password" v-model="password" />
-      <br />
-      <button
-        class="primaryButton"
-        tabindex="0"
-        type="submit"
-      >
-        <span class="buttonLabel">Login</span>
-      </button>
-      &nbsp;&nbsp;
-    </form>
-    <button class="secondaryButton" @click="displayForgotPasswordForm">
-      <span class="buttonLabel">Forgot password</span>
-    </button>    
-    <form v-if="forgotPasswordForm" @submit.prevent="changePassword()">
-      <h3>Enter account credentials</h3>
-      <label>Email</label>
-      <input type="email" v-model="forgotPasswordEmail" required />
-      <label>Secret key</label>
-      <input type="password" v-model="secretKey" required />
-      <label>New password</label>
-      <input type="password" v-model="newUserPassword" required />
-      <button class="secondaryButton" id="change-password-btn" type="submit">
-        <span class="buttonLabel">Change password</span>
-      </button>
-    </form>
-    <p v-if="passwordUpdatedMsg" class="success-msg">{{ passwordUpdatedMsg }}</p>
-    <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
-  </div>
+  <form @submit.prevent="handleSubmit()">
+    <h3>Login</h3>
+    <label>Email</label>
+    <input type="email" v-model="email" required />
+    <label>Password</label>
+    <div v-if="passwordError" class="error">{{ passwordError }}</div>
+    <input type="password" v-model="password" />
+    <br />
+    <button class="primaryButton" tabindex="0" type="submit">
+      <span class="buttonLabel">Login</span>
+    </button>
+    &nbsp;&nbsp;
+    <button class="secondaryButton" tabindex="0" @click="forgotPassword">
+      <span class="buttonLabel">Forget Password</span>
+    </button>
+  </form>
 </template>
 <script>
 export default {
@@ -47,21 +27,21 @@ export default {
       forgotPasswordEmail: null,
       secretKey: null,
       newUserPassword: null,
-      forgotPasswordForm: false
+      forgotPasswordForm: false,
     };
   },
 
-  beforeMount(){
-  this.$store.dispatch('clearStateValues')
+  beforeMount() {
+    this.$store.dispatch("clearStateValues");
   },
 
-computed: {
+  computed: {
     passwordUpdatedMsg() {
       return this.$store.state.userService.passwordUpdatedMsg;
     },
     errorMsg() {
-      return this.$store.state.userService.error
-    }        
+      return this.$store.state.userService.error;
+    },
   },
 
   methods: {
@@ -94,18 +74,18 @@ computed: {
         });
       }
     },
-  displayForgotPasswordForm(){
-    this.forgotPasswordForm = true
-  },
-  changePassword() {
+    forgotPassword() {
+      this.$router.push("/changePassword");
+    },
+    changePassword() {
       const userDetails = {
         email: this.forgotPasswordEmail,
         secretKey: this.secretKey,
-        newPassword: this.newUserPassword
+        newPassword: this.newUserPassword,
       };
-      this.$store.dispatch("updatePassword", userDetails)  
-    }
-  }
+      this.$store.dispatch("updatePassword", userDetails);
+    },
+  },
 };
 </script>
 
@@ -146,7 +126,7 @@ input[type="checkbox"] {
   font-weight: bold;
 }
 .success-msg {
-  color:#0F9D58;
+  color: #0f9d58;
   margin-top: 10px;
   font-size: 0.8em;
   font-weight: bold;
@@ -158,7 +138,7 @@ h3 {
   line-height: 1.2;
   margin-top: 0;
 }
-#change-password-btn{
+#change-password-btn {
   margin-top: 2%;
 }
 @media screen and (max-width: 600px) {
