@@ -15,7 +15,7 @@ export default new Vuex.Store({
   ],
 
   state: {
-    API_URL: "http://serverexamensarbete.herokuapp.com",
+    API_URL: "https://serverexamensarbete.herokuapp.com",
     wordsByLetter: null,
     word: null,
     definition: null,
@@ -193,7 +193,6 @@ export default new Vuex.Store({
         }
       }
     },
-
     async postComment(ctx, payload) {
       try {
         await axios.post(`${ctx.state.API_URL}/api/comments`, payload, {
