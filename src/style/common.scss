@@ -31,11 +31,11 @@
   background-color: #a4a5a4;
 }
 .primaryButton {
-  background-color: #0F9D58;
+  background-color: #0f9d58;
   cursor: pointer;
 }
 .primaryButton:hover:enabled {
-  background-color: #25D366;
+  background-color: #25d366;
 }
 
 .secondaryButton {
@@ -82,6 +82,18 @@
   margin-top: 10px;
   font-size: 0.8em;
   font-weight: bold;
+}
+
+.word-input {
+  padding: 15px;
+  outline: none;
+  border-radius: 20px;
+  border: 1px solid #1f1671;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
 }
 
 @media screen and (max-width: 600px) {

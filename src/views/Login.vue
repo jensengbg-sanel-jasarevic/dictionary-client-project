@@ -1,40 +1,21 @@
 <template>
-  <div>
-    <form @submit.prevent="handleSubmit()">
-      <h3>Login</h3>
-      <label>Email</label>
-      <input type="email" v-model="email" required />
-      <label>Password</label>
-      <div v-if="passwordError" class="error">{{ passwordError }}</div>
-      <input type="password" v-model="password" />
-      <br />
-      <button
-        class="primaryButton"
-        tabindex="0"
-        type="submit"
-      >
-        <span class="buttonLabel">Login</span>
-      </button>
-      &nbsp;&nbsp;
-    </form>
-    <button class="secondaryButton" @click="displayForgotPasswordForm">
-      <span class="buttonLabel">Forgot password</span>
-    </button>    
-    <form v-if="forgotPasswordForm" @submit.prevent="changePassword()">
-      <h3>Enter account credentials</h3>
-      <label>Email</label>
-      <input type="email" v-model="forgotPasswordEmail" required />
-      <label>Secret key</label>
-      <input type="password" v-model="secretKey" required />
-      <label>New password</label>
-      <input type="password" v-model="newUserPassword" required />
-      <button class="secondaryButton" id="change-password-btn" type="submit">
-        <span class="buttonLabel">Change password</span>
-      </button>
-    </form>
-    <p v-if="passwordUpdatedMsg" class="success-msg">{{ passwordUpdatedMsg }}</p>
-    <p v-if="errorMsg" class="error">{{ errorMsg }}</p>
-  </div>
+<<<<<<< HEAD
+  <form @submit.prevent="handleSubmit()">
+    <h3>Login</h3>
+    <label>Email</label>
+    <input type="email" v-model="email" required />
+    <label>Password</label>
+    <div v-if="passwordError" class="error">{{ passwordError }}</div>
+    <input type="password" v-model="password" />
+    <br />
+    <button class="primaryButton" tabindex="0" type="submit">
+      <span class="buttonLabel">Login</span>
+    </button>
+    &nbsp;&nbsp;
+    <button class="secondaryButton" tabindex="0" @click="forgotPassword">
+      <span class="buttonLabel">Forget Password</span>
+    </button>
+  </form>
 </template>
 <script>
 export default {
@@ -94,8 +75,9 @@ computed: {
         });
       }
     },
-  displayForgotPasswordForm(){
-    this.forgotPasswordForm = true
+    forgotPassword() {
+      this.$router.push("/changePassword");
+    },
   },
   changePassword() {
       const userDetails = {
