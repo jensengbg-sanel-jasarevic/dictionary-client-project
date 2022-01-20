@@ -1,5 +1,5 @@
 #### Web address URL
 https://dictionary-client-project.herokuapp.com/
 
-## Frontend - Web Dictionary
+# Project: Web Dictionary (frontend)
 Client software.
