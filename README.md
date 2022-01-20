@@ -6,13 +6,11 @@ Frontend. Client software.
 
 Online dictionary website with words and terms from the field of IT.
 
-Roles:
-
-Visitor
+Role: visitor
 * Search the dictionary & vote on comments.
 
-Registered
+Role: registered
 * Leave comments.
 
-Administrator
+Role: administrator
 * Manage the content of the application. Create, update, delete words & comments.
