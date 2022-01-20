@@ -15,7 +15,7 @@ export default new Vuex.Store({
   ],
 
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com",
+    API_URL: "https://dictionary-server-project.herokuapp.com",
     wordsByLetter: null,
     word: null,
     definition: null,
