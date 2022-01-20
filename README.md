@@ -2,4 +2,4 @@
 https://dictionary-client-project.herokuapp.com/
 
 # Project: Web Dictionary
-Frontend, client software.
+Frontend. Client software.
