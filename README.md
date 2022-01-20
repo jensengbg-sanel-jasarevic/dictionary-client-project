@@ -2,4 +2,4 @@
 Client software.
 
 ### Web address URL
-https://client-examensarbete.herokuapp.com/
+https://dictionary-client-project.herokuapp.com/
