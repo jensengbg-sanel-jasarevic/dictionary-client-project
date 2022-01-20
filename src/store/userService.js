@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   state: {
-    API_URL: "https://serverexamensarbete.herokuapp.com/api",
+    API_URL: "https://dictionary-server-project.herokuapp.com/api",
     token: "",
     user: [],
     error: "",
